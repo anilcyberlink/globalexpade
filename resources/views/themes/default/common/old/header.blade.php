@@ -37,28 +37,6 @@
 </head>
 
 <body>
-    <!-- preloader -->
-    <!--<div class="uk-preloader uk-text-center">-->
-    <!--  <div class="wrapper">-->
-    <!--    <div class="cloud"></div>-->
-    <!--    <div class="cloud2"></div>-->
-    <!--    <div class="mountain"></div>-->
-    <!--    <div class="dash dash1"></div>-->
-    <!--    <div class="dash dash2"></div>-->
-    <!--    <div class="dash dash3"></div>-->
-    <!--    <div class="dash dash4"></div>-->
-    <!--    <div class="dash dash5"></div>-->
-    <!--    <div class="dash dash6"></div>-->
-    <!--    <div class="dash dash7"></div>-->
-    <!--    <div class="dash dash8"></div>-->
-    <!--    <div class="dash dash9"></div>-->
-    <!--    <div class="dash dash10"></div>-->
-    <!--    <div class="flag"></div>-->
-    <!--  </div>-->
-    <!--  <h3 class="text-white">Loading...</h3>-->
-    <!--</div>-->
-    </div>
-    <!-- end preloader -->
     <!-- Header start -->
     <div class=""
         uk-sticky="start: 100; animation: uk-animation-slide-top; cls-active:uk-navbar-sticky; sel-target:.uk-navbar-container; class:uk-sticky;">
@@ -125,174 +103,47 @@
                                     </a>
                                 </div>
                             </li>
-                            <!-- End: expeditions -->
+                            <!-- Begin: trekkings -->
+                            @if($regions->count() > 0)
+                                <li>
+                                    <a href="{{ route('page.posttype_detail', $nav_trekkings->uri) }}">{{$nav_trekkings->post_type}}
+                                        <span uk-navbar-parent-icon></span>
+                                    </a>
 
-                            <!-- Begin: expeditions  -->
-                            <!-- <li>-->
-                            <!--   <a href="{{ route('page.posttype_detail', $nav_expeditions->uri) }}">{{$nav_expeditions->post_type}} <span uk-navbar-parent-icon></span>-->
-                            <!--   </a>-->
-                            <!--   <div uk-drop="boundary:.uk-navbar; stretch: true; flip: false; delay-hide: 20;" class="uk-dropdown">-->
-                            <!--     <div class="">-->
-                            <!--       <div class=" uk-grid-large tabs" uk-grid>-->
-                            <!--         <div class="uk-width-1-5@s">-->
-                            <!--           <ul class="uk-nav uk-navbar-dropdown-nav tabs-nav f-16 f-w-600">-->
-                            <!--             @foreach ($expeditions as $row )-->
-                            <!--             @if(trip_byDestinations($row->id)->count()>0)-->
-                            <!--             <li class="{{$loop->first?'uk-active':''}}">-->
-                            <!--               <a href="#{{$row->uri}}">{{$row->title}}</a>-->
-                            <!--             </li>-->
-                            <!--             @endif-->
-                            <!--             @endforeach-->
-                            <!--           </ul>-->
-                            <!--         </div>-->
-                            <!--         <div class="uk-width-expand@s">-->
-
-                            <!--         @foreach ($expeditions as $row)-->
-                            <!--@if (trip_byDestinations($row->id)->count() > 0)-->
-                            <!--           <div id="{{$row->uri}}" class="{{$loop->first?'tab-content uk-active':'tab-content'}}">-->
-                            <!--             <div class="uk-child-width-1-3 uk-grid-medium" uk-grid>-->
-                            <!--               @if(trip_byDestinations($row->id)->count()>0)-->
-                            <!--               @foreach (trip_byDestinations($row->id)->slice(0,2) as $_keyEx => $_rowEx)-->
-                            <!--               @if ($_keyEx >= 2)-->
-                            <!--                 @continue-->
-                            <!--               @endif-->
-                            <!--               <div>-->
-                            <!--                  start: list -->
-                            <!--                 <div>-->
-                            <!--                   <div class="uk_trip uk-transition-toggle uk-link-toggle" uk-scrollspy-class>-->
-                            <!--                     <a href="{{ url('page/' . tripurl($_rowEx->uri)) }}" class="uk-media-200 uk_trip_image uk-position-relative">-->
-                            <!--                       <img src="@if($_rowEx->thumbnail){{asset('uploads/original/'.$_rowEx->thumbnail)}}@else{{asset('themes-assets/images/default/default-thumbnail.png')}}@endif" class="uk-image uk-transition-scale-up uk-transition-opaque" alt="{{ $_rowEx->trip_title }}" loading="eager">-->
-                            <!--                       <div class="uk-panel uk_trip_image_content uk-position-bottom">-->
-                            <!--                         @if($_rowEx->duration)-->
-                            <!--                         <span class="uk_trip_tag_header">-->
-                            <!--                           {{$_rowEx->duration}} {{$_rowEx->duration <= '1' ? 'Day' : 'Days' }}-->
-                            <!--                         </span>-->
-                            <!--                         @endif-->
-                            <!--                         <h5 class="text-white uk-text-bold   uk-margin-remove uk-margin-bottom">{{ $_rowEx->trip_title }}</h5>-->
-                            <!--                       </div>-->
-                            <!--                     </a>-->
-                            <!--                   </div>-->
-                            <!--                 </div>-->
-                            <!--                  end: list -->
-                            <!--               </div>-->
-                            <!--               @endforeach-->
-                            <!--               @endif-->
-                            <!--               <div>-->
-                            <!--                 <ul class="uk-nav uk-navbar-dropdown-nav">-->
-                            <!--                   @if(trip_byDestinations($row->id)->count()>0)-->
-                            <!--                   @foreach (trip_byDestinations($row->id)->slice(2,7) as $value)-->
-                            <!--                   <li>-->
-                            <!--                     <a href="{{ url('page/' . tripurl($value->uri)) }}"> {{$value->trip_title}}</a>-->
-                            <!--                   </li>-->
-                            <!--                   @endforeach-->
-                            <!--                   @endif-->
-                            <!--                 </ul>-->
-                            <!--               </div>-->
-                            <!--             </div>-->
-                            <!--             <a href="{{ route('page.destinationlist', $row->uri) }}" class="uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-button uk-button-text ">View All</a>-->
-                            <!--           </div>-->
-
-                            <!--           @endif-->
-                            <!--           @endforeach-->
-
-
-                            <!--         </div>-->
-                            <!--       </div>-->
-                            <!--     </div>-->
-                            <!--   </div>-->
-                            <!-- </li>-->
-                            <!-- End: expeditions  -->
-                            <!-- Begin: trekkings  -->
-                            <li>
-                                <a href="{{ route('page.posttype_detail', $nav_trekkings->uri) }}">{{$nav_trekkings->post_type}}
-                                    <span uk-navbar-parent-icon></span>
-                                </a>
-                                <div uk-drop="boundary:.uk-navbar; stretch: true; flip: false; delay-hide: 20;"
-                                    class="uk-dropdown">
-                                    <div class="">
-                                        <div class=" uk-grid-large tabs" uk-grid>
-                                            <div class="uk-width-1-5@s">
-                                                <ul class="uk-nav uk-navbar-dropdown-nav tabs-navT f-w-600">
-                                                    @foreach($regions as $row)
-                                                        <li class="{{$loop->first ? 'uk-active' : ''}}">
-                                                            <a href="#{{$row->uri}}">{{$row->trip_title}}</a>
-                                                        </li>
-                                                    @endforeach
-                                                    <!-- @foreach($regions as $row)
-                                                        @if (tripbyregions($row->id)->count() > 0)
-                                                        <li class="{{$loop->first ? 'uk-active' : ''}}">
-                                                            <a href="#{{$row->uri}}">{{$row->title}}</a>
-                                                        </li>
-                                                        @endif
-                                                    @endforeach -->
-                                                </ul>
-                                            </div>
-                                            <div class="uk-width-expand@s">
-                                                @foreach ($regions as $row)
-                                                    @if (tripbyregions($row->id)->count() > 0)
-                                                        <!--  -->
-                                                        <div id="{{$row->uri}}"
-                                                            class="{{$loop->first ? 'tab-contentT uk-active' : 'tab-contentT'}}">
-                                                            <div class="uk-child-width-1-3 uk-grid-medium" uk-grid>
-                                                                @if(tripbyregions($row->id)->count() > 0)
-                                                                    @foreach (tripbyregions($row->id)->slice(0, 2) as $_keyEx => $_rowEx)
-                                                                        @if ($_keyEx >= 2)
-                                                                            @continue
-                                                                        @endif
-                                                                        <div>
-                                                                            <!-- start: list -->
-                                                                            <div>
-                                                                                <div class="uk_trip uk-transition-toggle uk-link-toggle"
-                                                                                    uk-scrollspy-class>
-                                                                                    <a href="{{ url('page/' . tripurl($_rowEx->uri)) }}"
-                                                                                        class="uk-media-200 uk_trip_image uk-position-relative">
-                                                                                        <img src="@if($_rowEx->thumbnail){{asset('uploads/original/' . $_rowEx->thumbnail)}}@else{{asset('themes-assets/images/default/default-thumbnail.png')}}@endif"
-                                                                                            class="uk-image uk-transition-scale-up uk-transition-opaque"
-                                                                                            alt="{{ $_rowEx->trip_title }}"
-                                                                                            loading="eager">
-                                                                                        <div
-                                                                                            class="uk-panel uk_trip_image_content uk-position-bottom">
-                                                                                            <!--<span class="uk_trip_tag_header">-->
-                                                                                            <!--  {{$_rowEx->duration}} {{$_rowEx->duration <= '1' ? 'Day' : 'Days' }}-->
-                                                                                            <!--</span>-->
-                                                                                            <h5
-                                                                                                class="text-white uk-text-bold uk-margin-remove uk-margin-bottom">
-                                                                                                {{ $_rowEx->trip_title }}</h5>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!-- end: list -->
-                                                                        </div>
-                                                                    @endforeach
-                                                                @endif
-                                                                <div>
-                                                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                                        @if(tripbyregions($row->id)->count() > 0)
-                                                                            @foreach (tripbyregions($row->id)->slice(2, 4) as $value)
-                                                                                <li>
-                                                                                    <a href="{{ url('page/' . tripurl($value->uri)) }}">
-                                                                                        {{$value->trip_title}}</a>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        @endif
-                                                                    </ul>
-                                                                </div>
+                                    <div uk-drop="boundary:.uk-navbar; stretch: true; flip: false; delay-hide: 20;"
+                                        class="uk-dropdown">
+                                        <div class="uk-child-width-1-4 uk-grid-medium" uk-grid>
+                                            <!-- Trip 1 -->
+                                            @foreach($regions as $row)
+                                                <div>
+                                                    <div class="uk_trip uk-transition-toggle uk-link-toggle">
+                                                        <a href="{{ url('page/' . tripurl($row->uri)) }}"
+                                                            class="uk-media-200 uk_trip_image uk-position-relative">
+                                                            <img src="@if($row->thumbnail){{asset('uploads/original/' . $row->thumbnail)}}@else{{asset('themes-assets/images/default/default-thumbnail.png')}}@endif"
+                                                                class="uk-image uk-transition-scale-up uk-transition-opaque"
+                                                                alt="" loading="eager">
+                                                            <div class="uk-panel uk_trip_image_content uk-position-bottom">
+                                                                <span class="uk_trip_tag">
+                                                                    <span> {{ $row->max_altitude }} </span>
+                                                                </span>
+                                                                <h5 class="text-white uk-text-bold">
+                                                                    {{$row->trip_title}}
+                                                                </h5>
                                                             </div>
-                                                            <a href="{{ route('page.regionlist', $row->uri) }}"
-                                                                class="uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-button uk-button-text ">View
-                                                                All</a>
-                                                        </div>
-                                                        <!--  -->
-                                                    @endif
-                                                @endforeach
-                                                <!--  -->
-                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
+
+                                        <a href="{{ route('page.posttype_detail', $nav_trekkings->uri) }}"
+                                            class="uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-button uk-button-text">
+                                            View All
+                                        </a>
                                     </div>
-                                </div>
-                            </li>
-                            <!-- End: trekkings  -->
+                                </li>
+                            @endif
+                            <!-- End: trekkings -->
                             @if($pagetypes->count() > 0)
                                 <li>
                                     <a href="avoide:javascript;">Useful Info <span uk-navbar-parent-icon></span>
@@ -394,7 +245,6 @@
                                                             <a
                                                                 href="{{ url('page/' . tripurl($row->uri)) }}">{{$row->trip_title }}</a>
                                                         </li>
-
                                                     @endforeach
 
                                                 </ul>
@@ -403,17 +253,14 @@
                                         @if($regions->count() > 0)
                                             <li class="js-accordion uk-parent">
                                                 <a href="{{ route('page.posttype_detail', $nav_trekkings->uri) }}"
-                                                    aria-expanded="false">{{$nav_trekkings->post_type}} <span
+                                                    aria-expanded="false">{{$nav_trekkings->post_type}}<span
                                                         uk-nav-parent-icon="" class="uk-icon uk-nav-parent-icon"></span>
                                                 </a>
                                                 <ul class="uk-nav-sub">
                                                     @foreach ($regions as $row)
-                                                        @if(tripbyregions($row->id)->count() > 0)
-                                                            <li>
-                                                                <a
-                                                                    href="{{ route('page.regionlist', $row->uri) }}">{{$row->title}}</a>
-                                                            </li>
-                                                        @endif
+                                                        <li>
+                                                            <a href="{{ url('page/' . tripurl($row->uri)) }}">{{$row->trip_title }}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </li>
