@@ -15,7 +15,15 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="bs-component">
+                            <textarea id="sub_title"name="sub_title" class="form-control" placeholder="Sub Title">{{ old('sub_title', $data->sub_title) }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

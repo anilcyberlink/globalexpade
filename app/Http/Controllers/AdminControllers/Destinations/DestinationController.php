@@ -20,6 +20,7 @@ class DestinationController extends Controller
     public function index()
     {
         $data = DestinationModel::orderBy('id','desc')->get();
+        // dd($data);
         return view('admin.destinations.index',compact('data'));
     }
 
