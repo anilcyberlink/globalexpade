@@ -72,6 +72,7 @@ class FrontpageController extends Controller
         $testimonial = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
         $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
 
+        // dd(DestinationModel::with('trips')->orderBy('id','asc')->get());
         return view('themes.default.frontpage', compact(
             'max_day',
             'popular_trip',
@@ -90,20 +91,16 @@ class FrontpageController extends Controller
         if (!check_posttype_uri($uri)) {
             abort(404);
         }
-        $trekkings = TripModel::where('trip_type', '1')->where('status', '1')->paginate(9);
-        // $trekkings = RegionModel::where(['status'=>'1'])->orderBy('ordering', 'asc')->paginate(9);
-        $expeditions = DestinationModel::where(['status' => '1'])->orderBy('ordering', 'asc')->paginate(9);
         $data = PostTypeModel::where('uri', $uri)->first();
         $tmpl['template'] = 'page';
-        // if($tmpl['template']){
-        //   $data['template'] = $data['template'];
-        // }
+
         if ($data) {
             $posts = PostModel::where(['post_type' => $data->id, 'status' => '1', 'post_parent' => '0'])->orderBy('post_order', 'desc')->paginate(12);
         }
         $items = PostModel::where(['post_type' => $data->id, 'post_parent' => '0'])->orderBy('post_order', 'asc')->get();
-        // dd($expeditions, $trekkings);
-        return view('themes.default.' . $data['template'] . '', compact('trekkings', 'expeditions', 'data', 'posts', 'items'));
+        // dd($data, $items);
+
+        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items'));
     }
 
 
@@ -165,6 +162,7 @@ class FrontpageController extends Controller
     public function tripdetail($uri)
     {
         $data = TripModel::where('uri', $uri)->orWhere('trip_code', $uri)->first();
+        // dd($data);
 
         if ($data->id) {
             $itinerary = $data->itineraries()->orderBy('ordering', 'asc')->get();
@@ -200,6 +198,25 @@ class FrontpageController extends Controller
     }
 
     //<------------------------------------------Activity Frontend---------------------------------------------->
+    public function expeditions()
+    {
+        $data = DestinationModel::orderBy('id','asc')->get();
+        dd($data);
+        return view('themes.default.expedition-list', compact('data'));
+    }
+    public function expedition($uri)
+    {
+        $data = DestinationModel::where('uri', $uri)->with('trips')->orderBy('id','asc')->first();
+        $trips = $data->trips()->where('status', 1)->orderBy('ordering')->paginate(6);
+        // dd($data, $trips);
+        return view('themes.default.expedition-list', compact('data', 'trips'));
+    }
+    public function treks()
+    {
+        $trips = TripModel::where('trip_type','1')->paginate(6);
+        // dd( $trips);
+        return view('themes.default.trekking-list', compact('trips'));
+    }
 
     public function travellist($uri)
     {
@@ -238,7 +255,7 @@ class FrontpageController extends Controller
             ->where('status', 1)
             ->orderBy('ordering', 'asc')
             ->paginate(6);
-            
+
         $data=PostTypeModel::where('id',3)->first();
 
         return view('themes.default.expedition-list', compact('trips','data'));
@@ -403,7 +420,7 @@ class FrontpageController extends Controller
             //     'email' => $request->email,
             //     'subscribed_at' => now(),
             // ]);
-            
+
             $newslettersubscriber = new NewsletterSubscriber();
             $newslettersubscriber->name = $request->name;
             $newslettersubscriber->email = $request->email;

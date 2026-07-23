@@ -28,8 +28,7 @@
             <div class="row v-center">
                 <div class="header-item item-left">
                     <div class="logo">
-                        <a href="index.php"><img src="{{ asset('themes-assets/img/logo.png') }}" width="75"
-                                alt=""></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset('themes-assets/img/logo.png') }}" width="75" alt=""></a>
                     </div>
                 </div>
                 <!-- menu start here -->
@@ -44,86 +43,44 @@
                         </div>
                         <ul class="menu-main m-0 p-0">
                             <li>
-                                <a href="index.php"><span class="menu-u">Home</span></a>
+                                <a href="{{ url('/') }}"><span class="menu-u">Home</span></a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="#"><span class="menu-u">Expedition</span> <i
-                                        class="fa fa-angle-down"></i></a>
+                                <a><span class="menu-u">Expedition</span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
                                 <div class="sub-menu mega-menu mega-menu-column-4">
-                                    <div class="list-item">
-                                        <h4 class="title">Fast Tracks</h4>
-                                        <ul>
-                                            <li><a href="detail.php"> Everest</a></li>
-                                            <li><a href="detail.php">Lhotse</a></li>
-                                            <li><a href="detail.php">K2</a></li>
-                                            <li><a href="detail.php">Kanchanjungha</a></li>
-                                            <li><a class="nav-more" href="list.php"> More <svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        fill="currentColor" class="bi bi-caret-right-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                                    </svg></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-item">
-                                        <h4 class="title">8000ers</h4>
-                                        <ul>
-                                            <li><a href="detail.php"> Everest</a></li>
-                                            <li><a href="detail.php">Lhotse</a></li>
-                                            <li><a href="detail.php">K2</a></li>
-                                            <li><a href="detail.php">Kanchanjungha</a></li>
-                                            <li><a class="nav-more" href="list.php"> More <svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        fill="currentColor" class="bi bi-caret-right-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                                    </svg></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-item">
-                                        <h4 class="title">7000ers</h4>
-                                        <ul>
-                                            <li><a href="detail.php"> Everest</a></li>
-                                            <li><a href="detail.php">Lhotse</a></li>
-                                            <li><a href="detail.php">K2</a></li>
-                                            <li><a href="detail.php">Kanchanjungha</a></li>
-                                            <li><a class="nav-more" href="list.php"> More <svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        fill="currentColor" class="bi bi-caret-right-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                                    </svg></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-item">
-                                        <h4 class="title">6000ers</h4>
-                                        <ul>
-                                            <li><a href="detail.php"> Everest</a></li>
-                                            <li><a href="detail.php">Lhotse</a></li>
-                                            <li><a href="detail.php">K2</a></li>
-                                            <li><a href="detail.php">Kanchanjungha</a></li>
-                                            <li><a class="nav-more" href="list.php"> More <svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14"
-                                                        height="14" fill="currentColor"
-                                                        class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                                    </svg></a></li>
-                                        </ul>
-                                    </div>
+                                    @foreach ($expeditions as $row)
+                                        <div class="list-item">
+                                            <h4 class="title">{{$row->title }}</h4>
+                                            <ul>
+                                                @foreach ($row->trips->take(4) as $trip)
+                                                    <li><a href="{{ route('page.tripdetail',$trip->uri )}}"> {{ $trip->trip_title }}</a></li>
+                                                @endforeach
+
+                                                @if($row->trips->count() > 4)
+                                                    <li><a class="nav-more" href="{{ route('page.expedition',$row->uri) }}"> More <svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                            fill="currentColor" class="bi bi-caret-right-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                                        </svg></a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </li>
                             <li>
-                                <a href="list.php"><span class="menu-u">Discover</span></a>
+                                <a href="{{ route('page.trekking')}}"><span class="menu-u">Trekking</span></a>
                             </li>
                             <li>
-                                <a href="about.php"><span class="menu-u">About Us </span> </a>
+                                <a href="{{ route('page.posttype_detail', $about_us->uri) }}"><span class="menu-u">About Us </span> </a>
                             </li>
                             <li>
-                                <a href="contact.php"><span class="menu-u">Contact </span></a>
+                                <a href="{{ route('page.posttype_detail', $contact_us->uri) }}"><span class="menu-u">Contact Us</span></a>
                             </li>
                         </ul>
                     </nav>

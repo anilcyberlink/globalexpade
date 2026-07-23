@@ -52,9 +52,13 @@ Route::get('testimonials', 'FrontendControllers\FrontpageController@testimonial'
 
 
 // Trip Pages
+Route::get('expedition/{uri}', 'FrontendControllers\FrontpageController@expedition')->name('page.expedition');
+Route::get('expeditions', 'FrontendControllers\FrontpageController@expeditions')->name('page.expeditions');
+Route::get('treks', 'FrontendControllers\FrontpageController@treks')->name('page.trekking');
+Route::get('trip/{uri}', 'FrontendControllers\FrontpageController@tripdetail')->name('page.tripdetail');
+
 Route::get('book/{uri}.html', 'FrontendControllers\FrontpageController@showbooking')->name('page.booking');
 Route::get('booking-success', 'FrontendControllers\FrontpageController@showbookingsuccess')->name('page.bookingsuccess');
-Route::get('page/{uri}.html', 'FrontendControllers\FrontpageController@tripdetail')->name('page.tripdetail');
 Route::get('activity/{uri}.html', 'FrontendControllers\FrontpageController@travellist')->name('page.activitydetail');
 Route::get('region/{uri}.html', 'FrontendControllers\FrontpageController@regionlist')->name('page.regionlist');
 Route::get('tours/{uri?}.html', 'FrontendControllers\FrontpageController@destinationlist')->name('page.destinationlist');
@@ -129,8 +133,8 @@ Route::middleware(['auth'])->group(function () {
     // Send Newsletter
     Route::get('/admin/newsletter-subscribers-list', 'AdminControllers\Newsletter\NewsletterSubscriberController@NewsLetterSubscribers')->name('newsletter.send');
     Route::post('/admin/send-newsletter-to-subscribers', 'AdminControllers\Newsletter\NewsletterSubscriberController@sendNewsletter')->name('ajax.newsletter.send');
-    
-    //Testimonial 
+
+    //Testimonial
     Route::post('testimonial-isdefault/{id?}','AdminControllers\Testimonials\TestimonialController@isdefault')->name('testimonial.isdefault');
     Route::post('testimonial-featured/{id?}','AdminControllers\Testimonials\TestimonialController@featured')->name('testimonial.featured');
 
