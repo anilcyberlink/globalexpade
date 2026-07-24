@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('themes-assets/css/bootstrap.min.css') }}">
     <!--hompage css-->
     <link rel="stylesheet" href="{{ asset('themes-assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('themes-assets/css/jquery.modal.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('themes-assets/css/jquery.modal.min.css') }}"> --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

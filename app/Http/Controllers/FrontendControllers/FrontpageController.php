@@ -154,16 +154,9 @@ class FrontpageController extends Controller
         return view('themes.default.' . $data['template'] . '', compact('data', 'data_child', 'associated_posts'));
     }
 
-
-    /***********************************
-     ******** Root Navigation ***********
-     ************************************/
-
-
     public function tripdetail($uri)
     {
         $data = TripModel::where('uri', $uri)->orWhere('trip_code', $uri)->first();
-        // dd($data);
 
         if ($data->id) {
             $itinerary = $data->itineraries()->orderBy('ordering', 'asc')->get();
@@ -180,7 +173,15 @@ class FrontpageController extends Controller
             $data->visiter = $visiter;
             $data->save();
         }
-        $similar_trips = $data->relatedtrips()->orderBy('ordering', 'asc')->get();
+        // $similar_trips = $data->relatedtrips()->orderBy('ordering', 'asc')->get();
+        $similar_tripsId= $data->relatedtrips()->pluck('related_trip_id');
+        if ($similar_tripsId->isNotEmpty()) {
+            $similar_trips = TripModel::with('destinations')->whereIn('id', $similar_tripsId)->take(3)->get();
+        }
+        else{
+            $similar_trips = TripModel::with('destinations')->where('uri', '!=', $uri)->orderBy('ordering', 'desc')->take(3)->get();
+        }
+        // dd($data,$similar_trips);
 
         return view('themes.default.tripdetail', compact(
             'data',
@@ -198,69 +199,26 @@ class FrontpageController extends Controller
         ));
     }
 
-    //<------------------------------------------Activity Frontend---------------------------------------------->
     public function expeditions()
     {
-        $data = DestinationModel::orderBy('id','asc')->paginate(6);
+        $data = DestinationModel::orderBy('id', 'asc')->paginate(6);
         // dd($data);
         return view('themes.default.expeditions', compact('data'));
     }
     public function expedition($uri)
     {
-        $data = DestinationModel::where('uri', $uri)->with('trips')->orderBy('id','asc')->first();
+        $data = DestinationModel::where('uri', $uri)->with('trips')->orderBy('id', 'asc')->first();
         $trips = $data->trips()->where('status', 1)->orderBy('ordering')->paginate(6);
         // dd($data, $trips);
         return view('themes.default.expedition-list', compact('data', 'trips'));
     }
     public function treks()
     {
-        $trips = TripModel::where('trip_type','1')->paginate(6);
+        $trips = TripModel::where('trip_type', '1')->paginate(6);
         // dd( $trips);
         return view('themes.default.trekking-list', compact('trips'));
     }
 
-    public function travellist($uri)
-    {
-        $data = ActivityModel::where('uri', $uri)->first();
-        $template = $data->template;
-        $trips = ActivityModel::find($data->id)->trips()->paginate(12);
-        $trips_activity = ActivityModel::find($data->id)->trips()->get();
-        $regions_list = RegionModel::paginate(9);
-        return view('themes.default.' . $template, compact('data', 'trips', 'trips_activity', 'regions_list'));
-    }
-
-    public function regionlist($uri)
-    {
-        $data = RegionModel::where('uri', $uri)->first();
-        $template = $data->template;
-        $trips = RegionModel::find($data->id)->trips()->paginate(6);
-        return view('themes.default.trekking-regionlist', compact('data', 'trips'));
-    }
-
-    public function destinationlist($uri)
-    {
-        $data = DestinationModel::where('uri', $uri)->first();
-        $expeditions = DestinationModel::where('id', '<>', $data->id)->get();
-        $trips = DestinationModel::find($data->id)->trips()->paginate(6);
-        return view('themes.default.expeditions-trip', compact('data', 'trips', 'expeditions'));
-    }
-
-    public function expeditionlist()
-    {
-
-        $destinationIds = [1, 2, 3, 4];
-
-        $trips = TripModel::whereHas('destinations', function ($query) use ($destinationIds) {
-            $query->whereIn('destination_id', $destinationIds);
-        })
-            ->where('status', 1)
-            ->orderBy('ordering', 'asc')
-            ->paginate(6);
-
-        $data=PostTypeModel::where('id',3)->first();
-
-        return view('themes.default.expedition-list', compact('trips','data'));
-    }
 
     public function luxuryTrip($value)
     {
@@ -276,31 +234,6 @@ class FrontpageController extends Controller
         return view('themes.default.team-single', compact('data'));
     }
 
-    //  <! ---Booking a Trip Controller--- !>
-    // public function post_tripbooking(Request $request)
-    // {
-    //     if ($request->isMethod('post')) {
-    //         // dd($request->all());
-    //         $request->validate([
-    //             'full_name' => 'required',
-    //             'email' => 'required',
-    //             'phone' => 'required',
-    //             'country' => 'required',
-    //             'h-captcha-response' => 'required|HCaptcha',
-    //         ]);
-    //         $form = \Illuminate\Support\Facades\Request::input();
-    //         if ($request->terms_conditions) {
-    //             $create = BookingModel::create($form);
-    //             if ($create) {
-    //                 // Mail::send(new \App\Mail\AdminBookingMail($request->email));
-    //                 return redirect()->route('page.bookingsuccess')->with('success', 'Booking completed successfully');
-    //             }
-    //         } else {
-    //             return back()->with('message', 'Please agree to the terms and conditions.');
-    //         }
-
-    //     }
-    // }
     public function post_tripbooking(Request $request)
     {
         $request->validate([
@@ -438,8 +371,6 @@ class FrontpageController extends Controller
                 ->with('error', 'Unable to process your request right now.');
         }
     }
-
-
 
 
     public function subscribe(Request $request)
@@ -642,14 +573,7 @@ class FrontpageController extends Controller
         return view('themes.default.common.triplist-popular', compact('popular_trips'));
     }
 
-    // public function redirect_arnold(){
-    //     $sessionName = $request->session()->getName();
-    //     // Session::put('book_url', request()->fullUrl());
-    //     // $d = Session('book_url');
-    //     // $r = explode("/",$d);
-    //     return redirect('https://demo7.lakhetech.com');
-    // }
-       public function testimonial()
+    public function testimonial()
     {
         $data = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
         $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
