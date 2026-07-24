@@ -98,6 +98,7 @@ class FrontpageController extends Controller
             $posts = PostModel::where(['post_type' => $data->id, 'status' => '1', 'post_parent' => '0'])->orderBy('post_order', 'desc')->paginate(12);
         }
         $items = PostModel::where(['post_type' => $data->id, 'post_parent' => '0'])->orderBy('post_order', 'asc')->get();
+        $partners = null;
         // dd($data, $items);
 
         return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items'));
@@ -200,9 +201,9 @@ class FrontpageController extends Controller
     //<------------------------------------------Activity Frontend---------------------------------------------->
     public function expeditions()
     {
-        $data = DestinationModel::orderBy('id','asc')->get();
-        dd($data);
-        return view('themes.default.expedition-list', compact('data'));
+        $data = DestinationModel::orderBy('id','asc')->paginate(6);
+        // dd($data);
+        return view('themes.default.expeditions', compact('data'));
     }
     public function expedition($uri)
     {

@@ -5,25 +5,25 @@
 @endsection
 @section('content')
 <div class="tray tray-center" style="">
-<div class="panel">         
+<div class="panel">
 	<div class="panel-body ph20">
 		<div class="tab-content">
 			<div id="users" class="tab-pane active">
 				<div class="table-responsive mhn20 mvn15">
-				    
+
 				<table class="table admin-form theme-warning fs13">
 						<thead>
 							<tr class="bg-light">
 								<th class="">SN</th>
-								<th class="">Post Type</th>   
-								<th class="">Is Menu </th>   
-								<th class=""> Ordering </th>   
-								<th class="">Date</th>   
+								<th class="">Post Type</th>
+								<th class="">Is Menu </th>
+								<th class=""> Ordering </th>
+								<th class="">Date</th>
 								<th class="text-left">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							@if(count($data) > 0)	            
+							@if(count($data) > 0)
 							@foreach($data as $row)
 							<tr class="id{{$row->id}}">
 								<td class="">{{$loop->iteration}}</td>
@@ -31,17 +31,17 @@
 								<td class="">{{ ($row->is_menu == 1)?'Yes':'No' }}</td>
 								<td> {{ $row->ordering }} </td>
 								<td> {{ $row->created_at }} </td>
-								<td class="text-left">  
-									<a href="{{ url('type/posttype/'.$row->id.'/edit') }}">Edit</a> 
+								<td class="text-left">
+									<a href="{{ url('type/posttype/'.$row->id.'/edit') }}">Edit</a>
 
 									@if(!is_empty_posttype($row->id))
-									<!--|-->
-									<!--<a href="#{{$row->id}}" class="btn-delete">Delete</a>-->
+									|
+									<a href="#{{$row->id}}" class="btn-delete">Delete</a>
 									@endif
 								</td>
 							</tr>
 							@endforeach
-							@endif  
+							@endif
 						</tbody>
 					</table>
 				</div>
@@ -64,11 +64,11 @@ jQuery(document).ready(function() {
     $.ajax({
       type:'DELETE',
       url:"{{url('type/posttype') . '/'}}" + id,
-      data:{_token:csrf},    
-      success:function(data){ 
+      data:{_token:csrf},
+      success:function(data){
         $('tbody tr.id' + id ).remove();
       },
-      error:function(data){       
+      error:function(data){
        alert('Error occurred!');
      }
    });

@@ -182,53 +182,53 @@
                         <div class="carousel-item  carousel2-item active">
                             <div class="d-none d-lg-block">
                                 <div class="slide-box">
-                                    <img src="assets/img/Breeze.jpg" alt="First slide">
-                                    <img src="assets/img/Shatterproof.jpeg" alt="First slide">
-                                    <img src="assets/img/images.png" alt="First slide">
-                                    <img src="assets/img/Breeze.jpg" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
                                 </div>
                             </div>
                             <div class="d-none d-md-block d-lg-none">
                                 <div class="slide-box">
-                                    <img src="assets/img/Breeze.jpg" alt="First slide">
-                                    <img src="assets/img/Shatterproof.jpeg" alt="First slide">
-                                    <img src="assets/img/images.png" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
                                 </div>
                             </div>
                             <div class="d-none d-sm-block d-md-none">
                                 <div class="slide-box">
-                                    <img src="assets/img/Breeze.jpg" alt="First slide">
-                                    <img src="assets/img/images.png" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
                                 </div>
                             </div>
                             <div class="d-block d-sm-none">
-                                <img class="d-block w-100" src="assets/img/Shatterproof.jpeg" alt="First slide">
+                                <img class="d-block w-100" src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
                             </div>
                         </div>
                         <div class="carousel-item carousel2-item">
                             <div class="d-none d-lg-block">
                                 <div class="slide-box">
-                                    <img src="assets/img/Breeze.jpg" alt="Second slide">
-                                    <img src="assets/img/images.png" alt="Second slide">
-                                    <img src="assets/img/Shatterproof.jpeg" alt="Second slide">
-                                    <img src="assets/img/Breeze.jpg" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
                                 </div>
                             </div>
                             <div class="d-none d-md-block d-lg-none">
                                 <div class="slide-box">
-                                    <img src="assets/img/images.png" alt="Second slide">
-                                    <img src="assets/img/Shatterproof.jpeg" alt="Second slide">
-                                    <img src="assets/img/images.png" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
                                 </div>
                             </div>
                             <div class="d-none d-sm-block d-md-none">
                                 <div class="slide-box">
-                                    <img src="assets/img/images.png" alt="Second slide">
-                                    <img src="assets/img/Breeze.jpg" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
                                 </div>
                             </div>
                             <div class="d-block d-sm-none">
-                                <img class="d-block w-100" src="assets/img/images.png" alt="Second slide"
+                                <img class="d-block w-100" src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide"
                                     class="img-fluid">
                             </div>
                         </div>
