@@ -13,7 +13,7 @@
             <!-- Input Fields -->
             <div class="panel">
                 <div class="panel-heading">
-                    <span class="panel-title">Edit Partners</span>
+                    <span class="panel-title">Edit Banners</span>
                 </div>
                 <div class="panel-body">
 
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-2 control-label" for="banner">Logo</label>
+                        <label class="col-lg-2 control-label" for="banner">Banner</label>
                         <div class="col-lg-6">
                             <div class="bs-component">
                                 <input type="file" class="form-control" name="picture" onchange="checkFileSize(this.files[0], this)" />

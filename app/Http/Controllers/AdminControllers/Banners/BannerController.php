@@ -143,7 +143,7 @@ class BannerController extends Controller
     public function destroy(BannerModel $bannerModel, $id)
     {
 
-        
+
         $data = BannerModel::find($id);
         if ($data->picture) {
             if (file_exists(env('PUBLIC_PATH') . 'uploads/banners/' . $data->picture)) {
@@ -153,7 +153,7 @@ class BannerController extends Controller
 
         $data->delete();
         return response()->json([
-          "errors"=>["Delete Successful."]
+          "success"=>["Delete Successful."]
         ]);
     }
     public function isdefault(Request $request)

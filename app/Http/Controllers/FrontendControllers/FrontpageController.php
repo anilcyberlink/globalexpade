@@ -46,6 +46,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Session;
+use App\Models\Banners\BannerModel;
 
 class FrontpageController extends Controller
 {
@@ -62,7 +63,7 @@ class FrontpageController extends Controller
             Session::put('tripName', $_GET['trip']);
             Session::put('price', $_GET['price']);
         }
-        $banner = TripModel::where(['status' => '1', 'is_menu' => '1'])->orderBy('ordering', 'asc')->limit(6)->get();
+        $banner = BannerModel::all();
         $about_me = PostTypeModel::where(['id' => '1'])->first(); //About ArnoldCoster
         $expeditions_type = PostTypeModel::where(['is_menu' => '1', 'id' => 3])->first();
         $trekkings_type = PostTypeModel::where(['is_menu' => '1', 'id' => 4])->first();
@@ -72,7 +73,7 @@ class FrontpageController extends Controller
         $testimonial = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
         $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
 
-        // dd(DestinationModel::with('trips')->orderBy('id','asc')->get());
+        // dd($banner);
         return view('themes.default.frontpage', compact(
             'max_day',
             'popular_trip',
