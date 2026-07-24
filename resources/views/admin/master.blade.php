@@ -35,7 +35,7 @@
             path_absolute: "/",
             selector: 'textarea.my-editor',
             relative_urls: false,
-            
+
             remove_script_host: false,
             document_base_url: "{{ url('/') }}/",
             convert_urls: true,
@@ -155,7 +155,7 @@
                     <li class="{{ Request::segment(2) == 'banner' ? 'active' : '' }}">
                         <a href="{{ url('admin/partner') }}">
                             <span class="fa fa-picture-o "></span>
-                            <span class="sidebar-title"> Manage Partners </span>
+                            <span class="sidebar-title"> Manage Banners </span>
                         </a>
                     </li>
                     <li class="">

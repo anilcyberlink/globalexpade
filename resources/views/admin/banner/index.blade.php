@@ -6,7 +6,7 @@
 @section('content')
 <section id="" class="table-layout animated fadeIn">
 <div class="">
-<div class="panel">         
+<div class="panel">
 	<div class="panel-body ph20">
 		<div class="tab-content">
 			<div id="users" class="tab-pane active">
@@ -15,14 +15,14 @@
 						<thead>
 							<tr class="bg-light">
 								<th class="">SN</th>
-								<th class="">Partners</th>
-								<th class="">Logo</th>
-								<th class="">Created at</th>                            
+								<th class="">Title</th>
+								<th class="">Banner</th>
+								<th class="">Created at</th>
 								<th class="text-center">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							@if(count($data) > 0)	            
+							@if(count($data) > 0)
 							@foreach($data as $row)
 							<tr class="id{{$row->id}}">
 								<td class="">{{$loop->iteration}}</td>
@@ -33,8 +33,8 @@
 							    @endif
 								</td>
 								<td class="">{{ ucfirst($row->created_at) }}</td>
-								<td class="text-center">  
-									<a href="{{ url('admin/partner/'.$row->id.'/edit') }}">Edit</a> 
+								<td class="text-center">
+									<a href="{{ url('admin/partner/'.$row->id.'/edit') }}">Edit</a>
 									|
 									<span class="trash"><a href="#{{$row->id}}" class="btn-delete">
 										Delete
@@ -42,7 +42,7 @@
 								</td>
 							</tr>
 							@endforeach
-							@endif  
+							@endif
 						</tbody>
 					</table>
 				</div>
@@ -66,14 +66,14 @@ jQuery(document).ready(function() {
     $.ajax({
       type:'DELETE',
       url:"{{url('admin/partner') . '/'}}" + id,
-      data:{_token:csrf},    
-      success:function(data){ 
+      data:{_token:csrf},
+      success:function(data){
         $('tbody tr.id' + id ).remove();
         jQuery.each(data.errors, function (key, value) {
                    toastr.error(value);
                     });
       },
-      error:function(data){       
+      error:function(data){
        alert('Error occurred!');
      }
    });

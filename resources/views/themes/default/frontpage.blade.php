@@ -1,45 +1,56 @@
 @extends('themes.default.common.master')
 @section('content')
 
-
 <div class="container-fluid">
     <div class="container-fluid">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="assets/img/main.jpg" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="assets/img/tour-img3.jpg" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="assets/img/offer-img4.jpg" alt="Third slide">
-                </div>
+                @foreach ($banner as $row)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+
+                        <img class="d-block w-100"
+                            src="{{ $row->picture ? asset('uploads/banners/'.$row->picture) : asset('themes-assets/img/main.jpg') }}"
+                            alt="{{ $row->title }}">
+
+                        <div class="carousel-caption">
+                            <h2>
+                                <span class="text-primary--main">
+                                    {{ $row->title }}
+                                </span>
+
+                                @if($row->caption)
+                                    <br>
+                                    <span class="text-primary--sub">
+                                        {{ $row->caption }}
+                                    </span>
+                                @endif
+                            </h2>
+
+                            @if($row->link)
+                                <a href="{{ $row->link }}" class="btn-header" target="_blank">
+                                    Join the Thrill
+                                </a>
+                            @endif
+                        </div>
+
+                    </div>
+                @endforeach
             </div>
-            <div class="carousel-caption">
-                <h2>
-                    <span class="text-primary--main ">
-                        Trust Our Experience
-                    </span>
-                    <br>
-                    <span class="text-primary--sub">
-                        A team of professional travel experts.
-                    </span>
-                </h2>
-                <button type="button" class="btn-header"><a href="detail.php">Join the Thrill</a> </button>
-            </div>
+
             <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
+
             <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
+
         </div>
     </div>
 </div>
-<!--Banner End-->
 
 <!--offers-section-->
 <section class="offers-section spad mb-2 mb-lg-5">
