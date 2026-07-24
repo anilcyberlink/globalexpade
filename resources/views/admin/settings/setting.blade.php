@@ -35,6 +35,17 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="textArea2">Address</label>
+                        <div class="col-lg-9">
+                            <div class="bs-component">
+                                <input type="text" class="form-control" id="contentEditor4" name="address"
+                                    value="{{ $data->address }}" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="inputStandard" class="col-lg-2 control-label">FAX</label>
                         <div class="col-lg-8">
@@ -138,16 +149,6 @@
                         <div class="col-lg-8">
                             <div class="bs-component">
                                 <textarea class="form-control" id="contentEditor5" name="meta_description" rows="3">{{ $data->meta_description }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label" for="textArea2">Location</label>
-                        <div class="col-lg-9">
-                            <div class="bs-component">
-                                <input type="text" class="form-control" id="contentEditor4" name="address"
-                                    value="{{ $data->address }}" />
                             </div>
                         </div>
                     </div>
@@ -266,7 +267,7 @@
             });
 
         }(jQuery));
-        
+
         (function($) {
             $('#banner_remove').on('click', function(e) {
                 e.preventDefault();

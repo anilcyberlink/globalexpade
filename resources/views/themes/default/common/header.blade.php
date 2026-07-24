@@ -76,12 +76,11 @@
                             <li>
                                 <a href="{{ route('page.trekking')}}"><span class="menu-u">Trekking</span></a>
                             </li>
-                            <li>
-                                <a href="{{ route('page.posttype_detail', $about_us->uri) }}"><span class="menu-u">About Us </span> </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('page.posttype_detail', $contact_us->uri) }}"><span class="menu-u">Contact Us</span></a>
-                            </li>
+                            @foreach ($posttypes as $item)
+                                <li>
+                                    <a href="{{ route('page.posttype_detail', $item->uri) }}"><span class="menu-u">{{ $item->post_type }}</span> </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </nav>
                 </div>

@@ -22,8 +22,7 @@ class HeaderComposer
     public function compose(View $view)
     {
         $view->with('expeditions', DestinationModel::with('trips')->orderBy('id','asc')->get());
-        $view->with('contact_us', PostTypeModel::where(['is_menu' => '1'])->where(['id' => '2'])->first());
-        $view->with('about_us', PostTypeModel::where(['is_menu' => '1'])->where(['id' => '1'])->first());
+		$view->with('posttypes', PostTypeModel::where(['is_menu'=>'1'])->where(['status'=>'1'])->get());
 
 
 
