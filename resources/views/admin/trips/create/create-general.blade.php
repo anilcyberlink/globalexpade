@@ -10,7 +10,7 @@
                     <div class="col-lg-12">
                         <div class="bs-component">
                             <input type="text" id="trip_title" name="trip_title" class="form-control"
-                                placeholder="Trip Title" value="{{ old('trip_title') }}" required/>
+                                placeholder="Trip Title" value="{{ old('trip_title') }}" required />
                             <input type="hidden" id="uri" name="uri" value="" />
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                             <label>Trip Difficulty</label>
                             @if ($trek->count() > 0)
                                 <select class="form-control" name="trip_grade">
-                                    <option value=""> Select Grade </option>
+                                    <option value="" selected hidden disabled> Select Grade </option>
                                     @foreach ($trek as $row)
                                         <option value="{{ $row->id }}">{{ $row->trip_grade }} </option>
                                     @endforeach
@@ -50,7 +50,7 @@
                             <label>Best Season</label>
                             <!-- <input type="text" name="best_season" class="form-control" value="{{ old('best_season') }}" /> -->
                             <select name="best_season" id="best_season" class="form-control">
-                                <option value="">Select season</option>
+                                <option value="" selected hidden>Select season</option>
                                 <option value="Spring">Spring</option>
                                 <option value="Summmer">Summer</option>
                                 <option value="Monsoon">Monsoon</option>
@@ -73,7 +73,8 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Group Size</label>
-                            <input type="text" name="group_size" class="form-control" value="{{ old('group_size') }}" />
+                            <input type="text" name="group_size" class="form-control"
+                                value="{{ old('group_size') }}" />
                         </div>
                     </div>
                 </div>
@@ -88,8 +89,6 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Country</label>
-                            <!--<input type="text" name="peak_name" class="form-control" value="{{ old('peak_name') }}" />-->
-                            <!--<input class="category-search form-control" type="text" placeholder="Search.."> -->
                             <select name="peak_name" id="country" class="form-control">
                                 <option value="">Select Country</option>
                                 @foreach ($countries as $row)
@@ -111,11 +110,11 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="bs-component">
-                            <label>Deposit Payable Now</label>
-                            <input type="number" min="1" name="route" class="form-control" value="{{ old('route') }}"
-                                placeholder="$" />
+                            <label>Discount (% Off)</label>
+                            <input type="number" min="1" name="discount" class="form-control"
+                                value="{{ old('discount') }}" />
                         </div>
-                        <small>Note: Deposit Amount must be numeric value!</small>
+                        <small>Note: Discount must be numeric value!</small>
                     </div>
                 </div>
                 <div class="form-group">
@@ -139,16 +138,16 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Start Date</label>
-                            <input type="date" name="start_date" class="form-control" value="{{ old('start-date') }}" />
+                            <input type="date" name="start_date" class="form-control"
+                                value="{{ old('start-date') }}" />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="bs-component">
-                            <label>Discount (% Off)</label>
-                            <input type="number" min="1" name="discount" class="form-control"
-                                value="{{ old('discount') }}" />
+                            <label>Route</label>
+                            <input type="text" min="1" name="route" class="form-control"
+                                value="{{ old('route') }}" placeholder="$" />
                         </div>
-                        <small>Note: Discount must be numeric value!</small>
                     </div>
                     <!--<div class="col-lg-6">-->
                     <!--    <div class="bs-component">-->
@@ -194,14 +193,13 @@
 
         <div class="panel">
             <div class="panel-heading">
-                <span class="panel-title">Trip Brief</span>
+                <span class="panel-title">Trip Overview</span>
             </div>
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <textarea class="my-editor form-control" name="trip_excerpt"
-                                rows="3">{{ old('trip_excerpt') }}</textarea>
+                            <textarea class="my-editor form-control" name="trip_excerpt" rows="3">{{ old('trip_excerpt') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -216,8 +214,7 @@
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <textarea class="form-control my-editor" name="trip_content"
-                                rows="9">{{ old('trip_content') }}</textarea>
+                            <textarea class="form-control my-editor" name="trip_content" rows="9">{{ old('trip_content') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -268,11 +265,11 @@
                 <div class="hd_show_con">
                     <select class="form-control onchange-select" name="trip_type" required>
                         <option value="" selected disabled> Select Trip Type </option>
-                        @foreach($trip_type as $row)
-                            @if($row->id == 1)
-                                <option value="{{$row->id}}">Trekking</option>
+                        @foreach ($trip_type as $row)
+                            @if ($row->id == 1)
+                                <option value="{{ $row->id }}">Trekking</option>
                             @else
-                                <option value="{{$row->id}}">{{$row->trip_type}}</option>
+                                <option value="{{ $row->id }}">{{ $row->trip_type }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -291,14 +288,13 @@
                             @if ($regions->count() > 0)
                                 <ul class="ctgor category-list" style="height:200px">
                                     @foreach ($regions as $row)
-                                        <li>
+<li>
                                             <label class="option">
-                                                <input type="checkbox" name="region[]" value="{{ $row->id }}" @if (is_array(old('region')) && in_array($row->id, old('region'))) checked
-                                                @endif />
+                                                <input type="checkbox" name="region[]" value="{{ $row->id }}" @if (is_array(old('region')) && in_array($row->id, old('region'))) checked @endif />
                                                 <span class="checkbox"></span> {{ $row->title }}
                                             </label>
                                         </li>
-                                    @endforeach
+@endforeach
                                 </ul>
                             @endif
                         </div>
@@ -316,8 +312,9 @@
                                     @foreach ($destinations as $row)
                                         <li>
                                             <label class="option">
-                                                <input type="checkbox" name="destination[]" value="{{ $row->id }}" @if (is_array(old('destination')) && in_array($row->id, old('destination')))
-                                                checked @endif />
+                                                <input type="checkbox" name="destination[]"
+                                                    value="{{ $row->id }}"
+                                                    @if (is_array(old('destination')) && in_array($row->id, old('destination'))) checked @endif />
                                                 <span class="checkbox"></span> {{ $row->title }}
                                             </label>
                                         </li>
@@ -337,7 +334,7 @@
                     </div>
                     <div class="tab-content mb15">
                         <div id="tab1" class="tab-pane active">
-                            @if ( $activities->count() > 0)
+                            @if ($activities->count() > 0)
                             <ul class="ctgor category-list1" style="height:200px">
                                 @foreach ($activities as $row)
                                 <li>
@@ -366,8 +363,9 @@
                                     @foreach ($trip_groups as $row)
                                         <li>
                                             <label class="option">
-                                                <input type="checkbox" name="tripgroup[]" value="{{ $row->id }}" @if (is_array(old('tripgroup')) && in_array($row->id, old('tripgroup'))) checked
-                                                @endif />
+                                                <input type="checkbox" name="tripgroup[]"
+                                                    value="{{ $row->id }}"
+                                                    @if (is_array(old('tripgroup')) && in_array($row->id, old('tripgroup'))) checked @endif />
                                                 <span class="checkbox"></span> {{ $row->title }}
                                             </label>
                                         </li>
@@ -394,7 +392,8 @@
                             <span class="button btn btn-primary">Choose File</span>
                             <input type="file" class="gui-file" name="thumbnail" id="file1"
                                 onchange="checkFileSize(this.files[0], this), document.getElementById('Thumbnail').value = this.value;">
-                            <input type="text" class="gui-input" id="Thumbnail" placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="Thumbnail"
+                                placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -412,7 +411,8 @@
                             <span class="button btn btn-primary">Choose File</span>
                             <input type="file" class="gui-file" name="trip_map" id="file2"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('trip_map').value = this.value;">
-                            <input type="text" class="gui-input" id="trip_map" placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="trip_map"
+                                placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -430,7 +430,8 @@
                             <span class="button btn btn-primary">Choose File</span>
                             <input type="file" class="gui-file" name="banner" id="file2"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('banner').value = this.value;">
-                            <input type="text" class="gui-input" id="banner" placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="banner"
+                                placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -448,7 +449,8 @@
                             <span class="button btn btn-primary">Choose File</span>
                             <input type="file" class="gui-file" name="upload_pdf" id="file2"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('upload_pdf').value = this.value;">
-                            <input type="text" class="gui-input" id="upload_pdf" placeholder="Please select a File">
+                            <input type="text" class="gui-input" id="upload_pdf"
+                                placeholder="Please select a File">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>

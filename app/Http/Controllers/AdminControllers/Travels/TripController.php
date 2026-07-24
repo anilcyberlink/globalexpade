@@ -55,10 +55,10 @@ class TripController extends Controller
         $all_trips = TripModel::get();
         $grades = TripGradeModel::all();
         $trip_type = TripTypeModel::get();
-        $trek=TripGradeModel::get();
+        $trek = TripGradeModel::get();
         $countries = CountryModel::all();
 
-        return view('admin.trips.create', compact('countries','trek','all_trips', 'trip_type', 'grades', 'ordering', 'destinations', 'regions', 'activities', 'trip_groups'));
+        return view('admin.trips.create', compact('countries', 'trek', 'all_trips', 'trip_type', 'grades', 'ordering', 'destinations', 'regions', 'activities', 'trip_groups'));
     }
 
     /**
@@ -71,10 +71,9 @@ class TripController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-              'trip_title' => 'required|unique:cl_trip_details,trip_title',
-              'starting_price' => 'numeric|nullable',
-              'route'=> 'numeric|nullable',
-              'discount' => 'numeric|nullable'
+                'trip_title' => 'required|unique:cl_trip_details,trip_title',
+                'starting_price' => 'numeric|nullable',
+                'discount' => 'numeric|nullable'
 
             ]);
             if ($validator->fails()) {
@@ -192,24 +191,24 @@ class TripController extends Controller
             $last_id = $result->id;
 
             // Insert into itinerary
-              if(isset($request->itinerary_ordering)){
+            if (isset($request->itinerary_ordering)) {
                 $keys = array_keys($request->itinerary_ordering);
                 $sn_itinerary = 1;
-              $sn_itinerary_count = count($request->itinerary_ordering);
-                foreach($keys as $key){
-                  if( $key + 1 >= $sn_itinerary_count ){
-                    continue;
-                  }
-                  $tripItinerary = new TripItineraryModel();
-                  $tripItinerary->trip_detail_id = $last_id;
-                  $tripItinerary->ordering = $request->itinerary_ordering[$key];
-                  $tripItinerary->days = $request->itinerary_days[$key];
-                  $tripItinerary->title = $request->itinerary_title[$key];
-                  $tripItinerary->content = $request->itinerary_content[$key];
-                  $tripItinerary->save();
-                  $sn_itinerary++;
+                $sn_itinerary_count = count($request->itinerary_ordering);
+                foreach ($keys as $key) {
+                    if ($key + 1 >= $sn_itinerary_count) {
+                        continue;
+                    }
+                    $tripItinerary = new TripItineraryModel();
+                    $tripItinerary->trip_detail_id = $last_id;
+                    $tripItinerary->ordering = $request->itinerary_ordering[$key];
+                    $tripItinerary->days = $request->itinerary_days[$key];
+                    $tripItinerary->title = $request->itinerary_title[$key];
+                    $tripItinerary->content = $request->itinerary_content[$key];
+                    $tripItinerary->save();
+                    $sn_itinerary++;
                 }
-              }
+            }
 
             // Insert Photo Videos
             if (isset($request->gear_ordering)) {
@@ -239,52 +238,52 @@ class TripController extends Controller
             }
 
 
-             // Insert into testimonial
-              if(isset($request->testimonial_ordering)){
+            // Insert into testimonial
+            if (isset($request->testimonial_ordering)) {
                 $testimonial_keys = array_keys($request->testimonial_ordering);
                 $sn_testimonial = 1;
                 $sn_testimonial_count = count($request->testimonial_ordering);
-                foreach($testimonial_keys as $key){
-                  if( $key + 1 >= $sn_testimonial_count ){
-                    continue;
-                  }
-                  $tripTestimonial = new CostIncludesModel();
-                  $tripTestimonial->trip_detail_id = $last_id;
-                  $tripTestimonial->ordering = $request->testimonial_ordering[$key];
-                  $tripTestimonial->title = $request->testimonial_title[$key];
-                  $tripTestimonial->save();
-                  $sn_testimonial++;
+                foreach ($testimonial_keys as $key) {
+                    if ($key + 1 >= $sn_testimonial_count) {
+                        continue;
+                    }
+                    $tripTestimonial = new CostIncludesModel();
+                    $tripTestimonial->trip_detail_id = $last_id;
+                    $tripTestimonial->ordering = $request->testimonial_ordering[$key];
+                    $tripTestimonial->title = $request->testimonial_title[$key];
+                    $tripTestimonial->save();
+                    $sn_testimonial++;
                 }
-              }
-              // Insert into Info
-              if(isset($request->info_ordering)){
+            }
+            // Insert into Info
+            if (isset($request->info_ordering)) {
                 $info_keys = array_keys($request->info_ordering);
                 $sn_info = 1;
                 $sn_info_count = count($request->info_ordering);
-                foreach($info_keys as $key){
-                  if( $key + 1 >= $sn_info_count ){
-                    continue;
-                  }
-                  $tripInfo = new CostExcludesModel();
-                  $tripInfo->trip_detail_id = $last_id;
-                  $tripInfo->ordering = $request->info_ordering[$key];
-                  $tripInfo->title = $request->info_title[$key];
-                  $tripInfo->save();
-                  $sn_info++;
+                foreach ($info_keys as $key) {
+                    if ($key + 1 >= $sn_info_count) {
+                        continue;
+                    }
+                    $tripInfo = new CostExcludesModel();
+                    $tripInfo->trip_detail_id = $last_id;
+                    $tripInfo->ordering = $request->info_ordering[$key];
+                    $tripInfo->title = $request->info_title[$key];
+                    $tripInfo->save();
+                    $sn_info++;
                 }
-              }
+            }
 
-        /************Attach******************/
-        $_data = TripModel::find($last_id);
-        $_data->destinations()->attach($request->destination);
-        $_data->regions()->attach($request->region);
-        $_data->activities()->attach($request->activity);
-        $_data->tripgroups()->attach($request->tripgroup);
+            /************Attach******************/
+            $_data = TripModel::find($last_id);
+            $_data->destinations()->attach($request->destination);
+            $_data->regions()->attach($request->region);
+            $_data->activities()->attach($request->activity);
+            $_data->tripgroups()->attach($request->tripgroup);
 
-        /************************************/
-        return response()->json(['status' => 'success', 'message' => 'Trip Added Successfully']);
-    }
-    return false;
+            /************************************/
+            return response()->json(['status' => 'success', 'message' => 'Trip Added Successfully']);
+        }
+        return false;
     }
 
     /**
@@ -337,10 +336,10 @@ class TripController extends Controller
         $all_trips = TripModel::get();
         $grades = TripGradeModel::all();
         $trip_type = TripTypeModel::get();
-        $trek=TripGradeModel::get();
-         $countries = CountryModel::all();
+        $trek = TripGradeModel::get();
+        $countries = CountryModel::all();
         return view('admin.trips.edit', compact(
-          'trek',
+            'trek',
             'all_trips',
             'data',
             'trip_type',
@@ -358,7 +357,7 @@ class TripController extends Controller
             'costexcludes',
             'grades',
             'countries'
-         ));
+        ));
     }
 
     /**
@@ -370,19 +369,18 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $validator = Validator::make($request->all(), [
-                'trip_title' => 'required|unique:cl_trip_details,trip_title,' . $id,
-               'starting_price' => 'numeric|nullable',
-              'route'=> 'numeric|nullable',
-              'discount' => 'numeric|nullable'
+        $validator = Validator::make($request->all(), [
+            'trip_title' => 'required|unique:cl_trip_details,trip_title,' . $id,
+            'starting_price' => 'numeric|nullable',
+            'discount' => 'numeric|nullable'
 
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()->all()
             ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => 'error',
-                    'errors' => $validator->errors()->all()
-                ]);
-            }
+        }
 
 
         if ($request->ajax()) {
@@ -425,7 +423,7 @@ class TripController extends Controller
             /******PDF*********/
             $pdf_file = $request->file('upload_pdf');
             $pdf_name = '';
-            if($request->hasfile('upload_pdf')){
+            if ($request->hasfile('upload_pdf')) {
                 $data = TripModel::find($id);
                 if ($data->upload_pdf) {
                     if (file_exists(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->upload_pdf)) {
@@ -485,7 +483,7 @@ class TripController extends Controller
                     $constraint->aspectRatio();
                 })->save($destinationPath . '/' . $trip_map_name);
                 $data->trip_map = $trip_map_name;
-                 $data->save();
+                $data->save();
             }
             /************Trip Chart*************/
             if ($request->hasfile('trip_chart')) {
@@ -506,7 +504,7 @@ class TripController extends Controller
 
                 $trip_chart_picture->save($destinationPath . '/' . $trip_chart_name);
                 $data->trip_chart = $trip_chart_name;
-                 $data->save();
+                $data->save();
             }
             $data->trip_title = $request->trip_title;
             $data->sub_title = $request->sub_title;
@@ -533,7 +531,7 @@ class TripController extends Controller
             $data->meta_description = $request->meta_description;
             $data->is_draft = $is_draft;
             // $data->is_menu = $request->is_menu;
-            $data->video_status=$request->video_status;
+            $data->video_status = $request->video_status;
             $data->start_date = $request->start_date;
             $data->guided_group = $request->guided_group;
             $data->discount = $request->discount;
@@ -545,8 +543,7 @@ class TripController extends Controller
                 if ($request->region) {
                     $_data->regions()->attach($request->region);
                 }
-            }
-            else {
+            } else {
                 if ($request->destination) {
                     $_data->destinations()->attach($request->destination);
                 }
@@ -569,7 +566,7 @@ class TripController extends Controller
                     if ($key + 1 >= $sn_itinerary_count) {
                         continue;
                     }
-                    if($request->itinerary_content[$value] == NULL && $request->itinerary_title[$value] == NULL){
+                    if ($request->itinerary_content[$value] == NULL && $request->itinerary_title[$value] == NULL) {
                         continue;
                     }
                     if ($request->itinerary_id[$value] == "") {
@@ -708,19 +705,18 @@ class TripController extends Controller
                 }
             }
 
-                   $data->is_menu = '0';
-               if($request->is_menu == '1'){
+            $data->is_menu = '0';
+            if ($request->is_menu == '1') {
 
-                  $old_banner = TripModel::where('is_menu','1')->orderBy('ordering','desc')->first();
-                  $count =  TripModel::where('is_menu','1')->count();
-                  if( $old_banner && $count > 5){
-                  $oldid = $old_banner->id;
-                  $old_data = TripModel::find($oldid);
-                  $old_data->is_menu = '0';
-                  $old_data->save();
-                  }
-                  $data->is_menu = $request->is_menu;
-
+                $old_banner = TripModel::where('is_menu', '1')->orderBy('ordering', 'desc')->first();
+                $count =  TripModel::where('is_menu', '1')->count();
+                if ($old_banner && $count > 5) {
+                    $oldid = $old_banner->id;
+                    $old_data = TripModel::find($oldid);
+                    $old_data->is_menu = '0';
+                    $old_data->save();
+                }
+                $data->is_menu = $request->is_menu;
             }
 
 
@@ -728,7 +724,7 @@ class TripController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Trip Update Successful!']);
         }
         return false;
-  }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -746,25 +742,25 @@ class TripController extends Controller
             }
         }
         if ($data->thumbnail) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail);
-             }
-         }
-          if ($data->trip_map) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map);
-             }
-         }
-          if ($data->trip_chart) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart);
-             }
-         }
-          if ($data->trip_pdf) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf);
-             }
-         }
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail);
+            }
+        }
+        if ($data->trip_map) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map);
+            }
+        }
+        if ($data->trip_chart) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart);
+            }
+        }
+        if ($data->trip_pdf) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf);
+            }
+        }
 
         $data->destinations()->detach();
         $data->regions()->detach();
@@ -779,101 +775,102 @@ class TripController extends Controller
         return 'Delete Successful';
     }
 
-   // Delete Trip Thumbnail
-     public function delete_trip_thumb(TripModel $tripModel, $id)
-     {
-         $data = TripModel::find($id);
-         if ($data->thumbnail) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail);
-             }
-         }
-         $data->thumbnail = null;
-         $data->save();
-         return response()->json([
-          "errors"=>["Delete Successful."]
-        ]);
-     }
-
-     // Delete Trip Banner
-     public function delete_trip_banner(TripModel $tripModel, $id)
-     {
-         $data = TripModel::find($id);
-         if ($data->banner) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner);
-             }
-         }
-         $data->banner = null;
-         $data->save();
-        return response()->json([
-          "errors"=>["Delete Successful."]
-        ]);
-     }
-
-     // Delete Map
-     public function delete_map(TripModel $tripModel, $id)
-     {
-         $data = TripModel::find($id);
-         if ($data->trip_map) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map);
-             }
-         }
-         $data->trip_map = null;
-         $data->save();
-         return response()->json([
-          "errors"=>["Delete Successful."]
-        ]);
-     }
-
-     public function delete_chart(TripModel $tripModel, $id)
-     {
-         $data = TripModel::find($id);
-         if ($data->trip_chart) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart);
-             }
-         }
-         $data->trip_chart = null;
-         $data->save();
-         return response()->json([
-          "errors"=>["Delete Successful."]
-        ]);
-     }
-
-     public function delete_pdf(TripModel $tripModel, $id)
-     {
-         $data = TripModel::find($id);
-         if ($data->trip_pdf) {
-             if (file_exists(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf)) {
-                 unlink(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf);
-             }
-         }
-         $data->trip_pdf = null;
-         $data->save();
-         return response()->json([
-          "errors"=>["Delete Successful."]
-        ]);
-     }
-
-      public function tripstatus($id){
+    // Delete Trip Thumbnail
+    public function delete_trip_thumb(TripModel $tripModel, $id)
+    {
         $data = TripModel::find($id);
-        if($data->status == '1'){
-          $data->status = '0';
-          $data->save();
-          return 'Success';
-        }else if($data->status == '0'){
-          $data->status = '1';
-          $data->save();
-          return 'Success';
+        if ($data->thumbnail) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->thumbnail);
+            }
+        }
+        $data->thumbnail = null;
+        $data->save();
+        return response()->json([
+            "errors" => ["Delete Successful."]
+        ]);
+    }
+
+    // Delete Trip Banner
+    public function delete_trip_banner(TripModel $tripModel, $id)
+    {
+        $data = TripModel::find($id);
+        if ($data->banner) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner);
+            }
+        }
+        $data->banner = null;
+        $data->save();
+        return response()->json([
+            "errors" => ["Delete Successful."]
+        ]);
+    }
+
+    // Delete Map
+    public function delete_map(TripModel $tripModel, $id)
+    {
+        $data = TripModel::find($id);
+        if ($data->trip_map) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_map);
+            }
+        }
+        $data->trip_map = null;
+        $data->save();
+        return response()->json([
+            "errors" => ["Delete Successful."]
+        ]);
+    }
+
+    public function delete_chart(TripModel $tripModel, $id)
+    {
+        $data = TripModel::find($id);
+        if ($data->trip_chart) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/original/' . $data->trip_chart);
+            }
+        }
+        $data->trip_chart = null;
+        $data->save();
+        return response()->json([
+            "errors" => ["Delete Successful."]
+        ]);
+    }
+
+    public function delete_pdf(TripModel $tripModel, $id)
+    {
+        $data = TripModel::find($id);
+        if ($data->trip_pdf) {
+            if (file_exists(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf)) {
+                unlink(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf);
+            }
+        }
+        $data->trip_pdf = null;
+        $data->save();
+        return response()->json([
+            "errors" => ["Delete Successful."]
+        ]);
+    }
+
+    public function tripstatus($id)
+    {
+        $data = TripModel::find($id);
+        if ($data->status == '1') {
+            $data->status = '0';
+            $data->save();
+            return 'Success';
+        } else if ($data->status == '0') {
+            $data->status = '1';
+            $data->save();
+            return 'Success';
         }
         return 'Not success';
-      }
-
-      public function banner_trip(){
-        $data = TripModel::where('is_menu','1')->get();
-      return view('admin.trips.banner', compact('data'));
-      }
-
     }
+
+    public function banner_trip()
+    {
+        $data = TripModel::where('is_menu', '1')->get();
+        return view('admin.trips.banner', compact('data'));
+    }
+}

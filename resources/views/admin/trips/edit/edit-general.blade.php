@@ -38,7 +38,6 @@
                             <label>Trip Difficulty</label>
                             @if ($trek->count() > 0)
                                 <select class="form-control" name="trip_grade">
-                                    <option value="0"> Select Grade </option>
                                     @foreach ($trek as $row)
                                         <option value="{{ $row->id }}" {{ $row->id == $data->trip_grade ? 'selected' : '' }}>
                                             {{ $row->trip_grade }}
@@ -52,8 +51,6 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Best Season</label>
-                            <!-- <input type="text" name="best_season" class="form-control"
-                                value="{{ $data->best_season }}" /> -->
                             <select name="best_season" id="best_season" class="form-control">
                                 <option value="" disabled>Select season</option>
                                 <option value="Spring" {{($data->best_season == 'Spring') ? 'selected' : ''}}>Spring</option>
@@ -62,8 +59,7 @@
                                 </option>
                                 <option value="Autumn" {{($data->best_season == 'Autumn') ? 'selected' : ''}}>Autumn</option>
                                 <option value="Winter" {{($data->best_season == 'Winter') ? 'selected' : ''}}>Winter</option>
-                                <option value="Spring/Autumn" {{($data->best_season == 'Winter') ? 'selected' : ''}}>
-                                    Spring/Autumn</option>
+                                <option value="Spring/Autumn" {{($data->best_season == 'Winter') ? 'selected' : ''}}>Spring/Autumn</option>
                             </select>
                         </div>
                     </div>
@@ -95,8 +91,6 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Country</label>
-                            <!--<input type="text" name="peak_name" class="form-control" value="{{ $data->peak_name }}"-->
-                            <!--    placeholder="Staff" />-->
                             <select name="peak_name" id="country" class="form-control">
                                 <option value="0">Select Country</option>
                                 @if ($countries->count() > 0)
@@ -114,7 +108,7 @@
                 <div class="form-group">
                     <div class="col-lg-6">
                         <div class="bs-component">
-                            <label>Total Price</label>
+                            <label>Total Price(In $)</label>
                             <input type="number" name="starting_price" class="form-control"
                                 value="{{ $data->starting_price }}" placeholder="$" />
                         </div>
@@ -122,11 +116,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="bs-component">
-                            <label>Deposit Payable Now</label>
-                            <input type="number" name="route" class="form-control" value="{{ $data->route }}"
-                                placeholder="$" />
+                            <label>Discount (% Off)</label>
+                            <input type="text" name="discount" class="form-control" value="{{ $data->discount }}" />
                         </div>
-                        <small>Note: Deposit Amount must be numeric value!</small>
+                        <small>Note: Discount must be numeric value!</small>
                     </div>
                 </div>
                 <div class="form-group">
@@ -162,11 +155,12 @@
                     <!--</div>-->
                     <div class="col-lg-6">
                         <div class="bs-component">
-                            <label>Discount (% Off)</label>
-                            <input type="text" name="discount" class="form-control" value="{{ $data->discount }}" />
+                            <label>Route</label>
+                            <input type="text" name="route" class="form-control" value="{{ $data->route }}"
+                                placeholder="$" />
                         </div>
-                        <small>Note: Discount must be numeric value!</small>
                     </div>
+
                 </div>
                 <div class="form-group">
 
@@ -211,7 +205,7 @@
 
         <div class="panel">
             <div class="panel-heading">
-                <span class="panel-title">Trip Brief</span>
+                <span class="panel-title">Trip Overview</span>
             </div>
             <div class="panel-body">
                 <div class="form-group">

@@ -57,7 +57,7 @@ Route::get('expeditions', 'FrontendControllers\FrontpageController@expeditions')
 Route::get('treks', 'FrontendControllers\FrontpageController@treks')->name('page.trekking');
 Route::get('trip/{uri}', 'FrontendControllers\FrontpageController@tripdetail')->name('page.tripdetail');
 
-Route::get('book/{uri}.html', 'FrontendControllers\FrontpageController@showbooking')->name('page.booking');
+Route::get('book/{uri}', 'FrontendControllers\FrontpageController@showbooking')->name('page.booking');
 Route::get('booking-success', 'FrontendControllers\FrontpageController@showbookingsuccess')->name('page.bookingsuccess');
 Route::get('activity/{uri}.html', 'FrontendControllers\FrontpageController@travellist')->name('page.activitydetail');
 Route::get('region/{uri}.html', 'FrontendControllers\FrontpageController@regionlist')->name('page.regionlist');
