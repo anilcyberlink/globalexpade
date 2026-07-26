@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title','Banner')
 @section('breadcrumb')
-     <a href="admin/partner/create" class="btn btn-primary btn-sm">Create</a>
+     <a href="admin/banner/create" class="btn btn-primary btn-sm">Create</a>
 @endsection
 @section('content')
 <section id="" class="table-layout animated fadeIn">
@@ -34,7 +34,7 @@
 								</td>
 								<td class="">{{ ucfirst($row->created_at) }}</td>
 								<td class="text-center">
-									<a href="{{ url('admin/partner/'.$row->id.'/edit') }}">Edit</a>
+									<a href="{{ url('admin/banner/'.$row->id.'/edit') }}">Edit</a>
 									|
 									<span class="trash"><a href="#{{$row->id}}" class="btn-delete">
 										Delete
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
     var id = str.slice(1);
     $.ajax({
       type:'DELETE',
-      url:"{{url('admin/partner') . '/'}}" + id,
+      url:"{{url('admin/banner') . '/'}}" + id,
       data:{_token:csrf},
       success:function(data){
         $('tbody tr.id' + id ).remove();

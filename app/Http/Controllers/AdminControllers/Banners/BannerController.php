@@ -22,6 +22,7 @@ class BannerController extends Controller
     public function index()
     {
         $data = BannerModel::all();
+        // dd($data);
         return view('admin.banner.index', compact('data'));
     }
 

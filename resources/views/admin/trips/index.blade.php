@@ -20,9 +20,9 @@
               <tr class="bg-light">
                 <th > SN </th>
                 <th >Trip Title</th>
-                <th>Show in Banner?</th>
+                <th>Show in Home?</th>
                 <th>Status</th>
-                <th>Types</th> 
+                <th>Types</th>
                  <th >Tour</th>
                 <th class="text-center" >Order</th>
                 <th width="10%">Trip Docs</th>
@@ -57,7 +57,7 @@
                     <span>{{$value->trip_type}}</span><br>
                     @endforeach
                     @endif
-                  </td> 
+                  </td>
 
                    <td >
                     @if($row->expeditions)
@@ -66,14 +66,14 @@
                      <span>{{$_row->title}}</span><br>
                     @endforeach
                     @endif
-                  </td> 
+                  </td>
                   <td class="text-center">
                     {{ $row->ordering }}
-                  </td> 
+                  </td>
                   <td>
                     <a href="{{ route('admin.tripdocs.index', $row->id) }}" title="PDF" class="btn btn-primary btn-sm">  Docs
                     </a>
-                  </td>               
+                  </td>
                 </tr>
                 @endforeach
 
@@ -121,7 +121,7 @@
         }
       });
   });
-  
+
     $('.submitdelete1').on('click', function(e) {
       e.preventDefault();
       if (confirm('Are you sure to delete??')) {

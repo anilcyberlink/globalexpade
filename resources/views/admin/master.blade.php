@@ -153,7 +153,7 @@
                         </a>
                     </li>
                     <li class="{{ Request::segment(2) == 'banner' ? 'active' : '' }}">
-                        <a href="{{ url('admin/partner') }}">
+                        <a href="{{ url('admin/banner') }}">
                             <span class="fa fa-picture-o "></span>
                             <span class="sidebar-title"> Manage Banners </span>
                         </a>
@@ -206,7 +206,8 @@
                             @endif
                         </ul>
                     </li>
-                    <li class="">
+
+                    {{-- <li class="">
                         @if (Request::segment(2) == 'pagetype' ||
                                 Request::segment(2) == 'terms-and-conditions' ||
                                 Request::segment(2) == 'gear-list' ||
@@ -230,15 +231,14 @@
                                     Page Types
                                 </a>
                             </li>
-                            <?php /*?> ?> ?> ?>
+
                             <li>
                                 <a href="{{ url('admin/pagecategory') }}">
                                     <span class="fa fa-arrows"></span>
                                     Page Categories
                                 </a>
                             </li>
-                            <?php */?>
-                            <!-- Page Type List -->
+
                             @if ($pagetype)
                                 @foreach ($pagetype as $row)
                                     <li class="{{ Request::segment(2) == $row->uri ? 'active' : '' }}">
@@ -249,9 +249,8 @@
                                     </li>
                                 @endforeach
                             @endif
-                            <!-- Page Type List -->
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li class="">
                         @if (Request::segment(2) == 'expedition' ||
@@ -285,12 +284,12 @@
                                     Trekking
                                 </a>
                             </li>
-                            <li class="{{ Request::segment(2) == 'tripgroup' ? 'active' : '' }}">
+                            {{-- <li class="{{ Request::segment(2) == 'tripgroup' ? 'active' : '' }}">
                                 <a href="{{ route('tripgroup.index') }}">
                                     <span class="fa fa fa-arrows-h"></span>
                                     Trip Group
                                 </a>
-                            </li>
+                            </li> --}}
                             <!-- <li class="{{ Request::segment(2) == 'region' || Request::segment(2) == 'trip-region' ? 'active' : '' }}">
                     <a href="{{ url('admin/region') }}">
                         <span class="fa fa fa-arrows-h"></span>
@@ -306,12 +305,12 @@
                     </a>
                     </li> --}}
                             <? */?>
-                            <li class="{{ Request::segment(2) == 'banner-trip' ? 'active' : '' }}">
+                            {{-- <li class="{{ Request::segment(2) == 'banner-trip' ? 'active' : '' }}">
                                 <a href="{{ url('admin/banner-trip') }}">
                                     <span class="fa fa fa-arrows-h"></span>
                                     Banner Trips
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="{{ Request::segment(2) == 'trip' ? 'active' : '' }}">
                                 <a href="{{ url('admin/trip') }}">
                                     <span class="fa fa fa-arrows-h"></span>
@@ -353,37 +352,37 @@
                                 </a>
                             </li>
                             <!-- Email Template -->
-                            <li class="{{ Request::segment(2) == 'newsletter-email-template' ? 'active' : '' }}">
+                            {{-- <li class="{{ Request::segment(2) == 'newsletter-email-template' ? 'active' : '' }}">
                                 <a href="{{ route('newsletter.email.template') }}">
                                     <span class="fa fa-file-text"></span>
                                     Email Template
                                 </a>
-                            </li>
+                            </li> --}}
                             <!-- Send Email -->
-                            <li class="{{ Request::segment(2) == 'newsletter-subscribers-list' ? 'active' : '' }}">
+                            {{-- <li class="{{ Request::segment(2) == 'newsletter-subscribers-list' ? 'active' : '' }}">
                                 <a href="{{ route('newsletter.send') }}">
                                     <span class="fa fa-paper-plane"></span>
                                     Send Email
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
 
                     </li>
                     </li>
-                    <li
+                    {{-- <li
                         class="{{ Request::segment(1) == 'admin-travel-guide-index' || Request::segment(1) == 'admin-travel-guide' || Request::segment(1) == 'admin-travel-guide-edit' ? 'active' : '' }}">
                         <a href="{{ route('travel_guide_index') }}">
                             <span class="fa fa-book"></span>
                             <span class="sidebar-title">Travel Guide</span>
                         </a>
-                    </li>
-                    <li
+                    </li> --}}
+                    {{-- <li
                         class="{{ Request::segment(2) == 'testimonial' ? 'active' : '' }}">
                         <a href="{{ url('admin/testimonial') }}">
                             <span class="fa fa-comments"></span>
                             <span class="sidebar-title">Testimonials</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <?php /*?> ?> ?> ?>
                     {{-- <li class="{{ (Request::segment(2) == 'teams')?'active':'' }}">
                     <a href="{{ url('admin/teams') }}">
@@ -491,19 +490,19 @@
                             <span class="sidebar-title"> Settings </span>
                         </a>
                     </li>
-                    <li class="{{ Request::segment(2) == 'laravel-filemanager' ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::segment(2) == 'laravel-filemanager' ? 'active' : '' }}">
                         <a href="{{ url('/laravel-filemanager?type=Images') }}">
                             <span class="fa fa-cog text-info"></span>
                             <span class="sidebar-title"> File Manager </span>
                         </a>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{ Request::segment(2) == 'laravel-filemanager' ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::segment(2) == 'laravel-filemanager' ? 'active' : '' }}">
                         <a href="{{ url('/laravel-filemanager?type=media') }}">
                             <span class="fa fa-cog text-info"></span>
                             <span class="sidebar-title"> PDF Upload </span>
                         </a>
-                    </li>
+                    </li> --}}
             </div>
         </aside>
 

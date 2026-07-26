@@ -53,25 +53,26 @@
 </div>
 
 <!--offers-section-->
-<section class="offers-section spad mb-2 mb-lg-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offers-content">
-                <h1 class="heading-section">Travel With Us</h1>
-                <p class="section-details ">
-                    Lorem ipsum dolor it amet consectetur adipisicing elit. Natus voluptatum temporibus sapiente laudantium sequi, saepe consequatur.
-                </p>
-                <p class="section-details ">
-                    Lorem ipsum dolor it amet consectetur adipisicing elit. Natus voluptatum temporibus sapiente laudantium sequi, consequatur repellendus molestiae omnis magnam placeat? Ad nesciunt aliquid eveniet ipsam exercitationem amet eveniet ipsam exercitationem amet eveniet ipsam exercitationem amet eveniet ipsam exercitationem amet .
-                </p>
-                <a href="list.php" class="btn btn-tour">Join the Thrill</a>
-            </div>
-            <div class="col-md-6">
-                <img src="assets/img/offer-img2.jpg" class="img-fluid" height="500" width="100%" alt="">
+@if($about_me)
+    <section class="offers-section spad mb-2 mb-lg-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offers-content">
+                    <h1 class="heading-section">{{ $about_me->post_type }}</h1>
+                    <p class="section-details ">
+                    </p>
+                    <p class="section-details ">
+                        {!! $about_me->content !!}
+                    </p>
+                    <a href="{{ route('page.posttype_detail', $about_me->uri) }}" class="btn btn-tour">Know More</a>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ $about_me->thumbnail ? asset('uploads/original/'.$about_me->thumbnail) : asset('themes-assets/img/offer-img2.jpg')}}" class="img-fluid" height="500" width="100%" alt="{{ $about_me->post_type }}">
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+@endif
 <!--offers-section-end-->
 
 <!-- Tab section -->
@@ -81,18 +82,18 @@
     <div class="container">
         <center>
             <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav " style=" margin-bottom:20px; ">
-                <li class="nav-item flex-sm-fill ">
-                    <a id="home-tab" data-toggle="tab" href="#pills-home" role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active tab-head">All</a>
-                </li>
+                {{-- <li class="nav-item flex-sm-fill ">
+                    <a id="home-tab" data-toggle="tab"  role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active tab-head">All</a>
+                </li> --}}
                 <li class="nav-item flex-sm-fill">
-                    <a id="profile-tab" data-toggle="tab" href="#pills-profile" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold tab-head">8000</a>
+                    <a id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold tab-head">Join The Thrill</a>
                 </li>
-                <li class="nav-item flex-sm-fill">
+                {{-- <li class="nav-item flex-sm-fill">
                     <a id="contact-tab" data-toggle="tab" href="#pills-contact" role="tab" aria-controls="contact" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold tab-head">7000</a>
                 </li>
                 <li class="nav-item flex-sm-fill">
                     <a id="contact-tab" data-toggle="tab" href="#pills-contact" role="tab" aria-controls="contact" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold tab-head">6000</a>
-                </li>
+                </li> --}}
             </ul>
         </center>
     </div>
@@ -101,284 +102,36 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <section class="tour-section ppad">
                 <div class="container-fluid ">
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/1.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Everest Base Camp
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/3.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Gosaikunda Heli Tour
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    @forelse ($trips->chunk(2) as $rowIndex => $row)
+                        <div class="row align-items-center ">
+                            @foreach ($row as $item)
+                                @php
+                                    $reversedRow = $rowIndex % 2 === 1;
+                                    $isFirstCol = $loop->first;
 
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 order-2 order-md-1">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/6.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Upper Mustang
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
+                                    $colClass = $isFirstCol
+                                        ? ($reversedRow ? 'col-lg-5 order-2 order-md-1' : 'col-lg-7')
+                                        : ($reversedRow ? 'col-lg-7 order-1 order-md-2' : 'col-lg-5');
+                                @endphp
+                                <div class="{{ $colClass }}">
+                                    <a href="{{ route('page.tripdetail',$item->uri )}}">
+                                        <img src="{{ $item->thumbnail ? asset('uploads/original/' . $item->thumbnail) : asset('themes-assets/img/list/1.jpg') }}" class="img-fluid" alt="{{ $item->trip_title }}">
+                                        <div class="text-box">
+                                            <p class="textbox-main">
+                                                {{ $item->trip_title }}
+                                            </p>
+                                            <p class="textbox-details">
+                                                Lorem ipsum dolor sit amet.
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-
+                            @endforeach
                         </div>
-                        <div class="col-lg-7 order-1 order-md-2">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/4.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Annapurna Base Camp
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/5.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Mardi Himal
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/list/2.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Langtang Heli Tour
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="list.php" class="btn btn-more">View More</a>
-                </div>
-            </section>
-        </div>
-        <!-- 2nd card -->
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <section class="tour-section ppad">
-                <div class="container-fluid ">
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/trees.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img4.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 order-2 order-md-1">
-                            <a href="detail.php">
-                                <img src="./assets/img/trek.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-7 order-1 order-md-2">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img2.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img3.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/wp2609068.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="list.php" class="btn btn-more">View More</a>
-                </div>
-            </section>
-        </div>
-        <!-- 3nd card -->
-        <div class="tab-pane fade third" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <section class="tour-section ppad">
-                <div class="container-fluid ">
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/trees.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img4.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col-lg-5 order-2 order-md-1">
-                            <a href="detail.php">
-                                <img src="./assets/img/trek.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-7 order-1 order-md-2">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img2.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row align-items-center ">
-                        <div class="col-lg-7">
-                            <a href="detail.php">
-                                <img src="./assets/img/tour-img3.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-5">
-                            <a href="detail.php">
-                                <img src="./assets/img/wp2609068.jpg" class="img-fluid" alt="">
-                                <div class="text-box">
-                                    <p class="textbox-main">
-                                        Lorem Ipsim
-                                    </p>
-                                    <p class="textbox-details">
-                                        Lorem ipsum dolor sit amet.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="list.php" class="btn btn-more">View More</a>
+                    @empty
+                        <p class="text-center">No trips available yet.</p>
+                    @endforelse
+                    <a href="{{ route('page.expeditions') }}" class="btn btn-more">View More</a>
                 </div>
             </section>
         </div>
@@ -388,78 +141,38 @@
 <!-- Tab section close-->
 
 <!-- Slider main container -->
-<div class=" detail-trip-icon">
-    <div class="row mb-5 d-flex justify-content-center">
-         <h1 class="heading-section1">Enjoy Our Various Exclusive Trips</h1>
-    </div>
-    <div class="row">
-        <div class="swiper-container">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="./assets/img/list/6.jpg" alt="" />
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p class="textbox-main">
-                                Upper Mustang
-                            </p>
-                            <a href="detail.php" class="btn btn-tour">View More</a>
+@if($showInHome)
+    <div class=" detail-trip-icon">
+        <div class="row mb-5 d-flex justify-content-center">
+            <h1 class="heading-section1">Enjoy Our Various Popular Trips</h1>
+        </div>
+        <div class="row">
+            <div class="swiper-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    @foreach ($showInHome as $item)
+                        <div class="swiper-slide">
+                            <img src="{{ $item->thumbnail ? asset('uploads/original/' . $item->thumbnail) : asset('themes-assets/img/list/1.jpg') }}" alt="{{ $item->trip_title }}" />
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <p class="textbox-main">
+                                        {{ $item->trip_title }}
+                                    </p>
+                                    <a href="{{ route('page.tripdetail',$item->uri )}}" class="btn btn-tour">View More</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="swiper-slide">
-                    <img src="./assets/img/list/4.jpg" alt="" />
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p class="textbox-main">
-                                Annapurna Base Camp
-                            </p>
-                            <a href="detail.php" class="btn btn-tour">View More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="./assets/img/list/2.jpg" alt="" />
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p class="textbox-main">
-                                Langtang Heli Tour
-                            </p>
-                            <a href="detail.php" class="btn btn-tour">View More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="./assets/img/list/5.jpg" alt="" />
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p class="textbox-main">
-                                Mardi Himal
-                            </p>
-                            <a href="detail.php" class="btn btn-tour">View More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="./assets/img/list/6.jpg" alt="" />
-                    <div class="overlay">
-                        <div class="overlay-content">
-                            <p class="textbox-main">
-                                Upper Mustang
-                            </p>
-                            <a href="detail.php" class="btn btn-tour">View More</a>
-                        </div>
-                    </div>
-                </div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
         </div>
     </div>
-</div>
+@endif
 <!-- About Section -->
-<div class="about-section ">
+{{-- <div class="about-section ">
     <div class="container">
         <div class="row">
 
@@ -470,7 +183,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <div class="sponsers-section">
@@ -486,53 +199,53 @@
                     <div class="carousel-item  carousel2-item active">
                         <div class="d-none d-lg-block">
                             <div class="slide-box">
-                                <img src="assets/img/Breeze.jpg" alt="First slide">
-                                <img src="assets/img/Shatterproof.jpeg" alt="First slide">
-                                <img src="assets/img/images.png" alt="First slide">
-                                <img src="assets/img/Breeze.jpg" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
                             </div>
                         </div>
                         <div class="d-none d-md-block d-lg-none">
                             <div class="slide-box">
-                                <img src="assets/img/Breeze.jpg" alt="First slide">
-                                <img src="assets/img/Shatterproof.jpeg" alt="First slide">
-                                <img src="assets/img/images.png" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
                             </div>
                         </div>
                         <div class="d-none d-sm-block d-md-none">
                             <div class="slide-box">
-                                <img src="assets/img/Breeze.jpg" alt="First slide">
-                                <img src="assets/img/images.png" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
+                                <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
                             </div>
                         </div>
                         <div class="d-block d-sm-none">
-                            <img class="d-block w-100" src="assets/img/Shatterproof.jpeg" alt="First slide">
+                            <img class="d-block w-100" src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
                         </div>
                     </div>
                     <div class="carousel-item carousel2-item">
                         <div class="d-none d-lg-block">
                             <div class="slide-box">
-                                <img src="assets/img/Breeze.jpg" alt="Second slide">
-                                <img src="assets/img/images.png" alt="Second slide">
-                                <img src="assets/img/Shatterproof.jpeg" alt="Second slide">
-                                <img src="assets/img/Breeze.jpg" alt="Second slide">
+                                <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
                             </div>
                         </div>
                         <div class="d-none d-md-block d-lg-none">
                             <div class="slide-box">
-                                <img src="assets/img/images.png" alt="Second slide">
-                                <img src="assets/img/Shatterproof.jpeg" alt="Second slide">
-                                <img src="assets/img/images.png" alt="Second slide">
+                                <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
                             </div>
                         </div>
                         <div class="d-none d-sm-block d-md-none">
                             <div class="slide-box">
-                                <img src="assets/img/images.png" alt="Second slide">
-                                <img src="assets/img/Breeze.jpg" alt="Second slide">
+                                <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
+                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
                             </div>
                         </div>
                         <div class="d-block d-sm-none">
-                            <img class="d-block w-100" src="assets/img/images.png" alt="Second slide" class="img-fluid">
+                            <img class="d-block w-100" src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide" class="img-fluid">
                         </div>
                     </div>
                 </div>

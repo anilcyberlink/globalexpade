@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resources([
         'admin/user' => 'AdminControllers\Members\UserController',
-        'admin/partner' => 'AdminControllers\Banners\BannerController',
+        'admin/banner' => 'AdminControllers\Banners\BannerController',
         'admin/postcategory' => 'AdminControllers\Posts\PostCategoryController',
         'admin/settings' => 'AdminControllers\Settings\SettingController',
         'admin/trip' => 'AdminControllers\Travels\TripController',
