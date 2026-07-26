@@ -64,7 +64,15 @@ class FrontpageController extends Controller
             Session::put('price', $_GET['price']);
         }
         $banner = BannerModel::all();
-        $about_me = PostTypeModel::where(['id' => '1'])->first(); //About ArnoldCoster
+        $about_me = PostTypeModel::where(['id' => '1'])->first();
+        $trips = DestinationModel::with([
+            'trips' => fn ($query) => $query->where('status', 1)
+        ])->get()->flatMap->trips->take(6);
+        $showInHome = DestinationModel::with([
+            'trips' => fn ($query) => $query->where('is_menu', '1')->where('status', 1)
+        ])->get()->flatMap->trips;
+
+
         $expeditions_type = PostTypeModel::where(['is_menu' => '1', 'id' => 3])->first();
         $trekkings_type = PostTypeModel::where(['is_menu' => '1', 'id' => 4])->first();
         $trekkings_list = TripModel::where('trip_type', 1)->orderBy('ordering', 'desc')->get();
@@ -73,16 +81,12 @@ class FrontpageController extends Controller
         $testimonial = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
         $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
 
-        // dd($banner);
+        // dd($showInHome);
         return view('themes.default.frontpage', compact(
-            'max_day',
-            'popular_trip',
             'banner',
-            'expeditions_type',
-            'trekkings_type',
             'about_me',
-            'testimonials',
-            'testimonial'
+            'trips',
+            'showInHome'
         ));
     }
 

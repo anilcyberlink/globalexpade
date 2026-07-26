@@ -1,11 +1,11 @@
 @extends('admin.master')
 @section('title', 'Banner')
 @section('breadcrumb')
-    <a href="admin/partner" class="btn btn-primary btn-sm">List</a>
+    <a href="admin/banner" class="btn btn-primary btn-sm">List</a>
 @endsection
 @section('content')
 
-    <form class="form-horizontal" role="form" action="{{ url('admin/partner') }}" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" action="{{ url('admin/banner') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="col-md-12">
             <!-- Input Fields -->
