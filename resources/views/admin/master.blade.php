@@ -376,13 +376,13 @@
                             <span class="sidebar-title">Travel Guide</span>
                         </a>
                     </li> --}}
-                    {{-- <li
+                    <li
                         class="{{ Request::segment(2) == 'testimonial' ? 'active' : '' }}">
                         <a href="{{ url('admin/testimonial') }}">
                             <span class="fa fa-comments"></span>
-                            <span class="sidebar-title">Testimonials</span>
+                            <span class="sidebar-title">Partners</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <?php /*?> ?> ?> ?>
                     {{-- <li class="{{ (Request::segment(2) == 'teams')?'active':'' }}">
                     <a href="{{ url('admin/teams') }}">

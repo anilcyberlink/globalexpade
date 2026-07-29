@@ -13,7 +13,7 @@
             <div class="panel">
                 <div class="panel-heading">
                     <span class="panel-title">
-                        Edit Testimonial
+                        Edit Partners
                     </span>
                 </div>
                 <div class="panel-body">
@@ -25,7 +25,7 @@
                             <input type="text" name="name" class="form-control" value="{{ $data->name }}">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="col-lg-3 control-label">
                             Country
                         </label>
@@ -95,7 +95,7 @@
                         <div class="col-lg-8">
                             <textarea name="testimonial" rows="8" class="form-control">{{ $data->testimonial }}</textarea>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
                             Picture
@@ -104,9 +104,9 @@
                             <input type="file" name="picture" />
                             @if ($data->picture)
                                 <span class="id{{ $data->id }}">
-                                    <a href="#{{ $data->id }}" class="imagedelete">
+                                    {{-- <a href="#{{ $data->id }}" class="imagedelete">
                                         X
-                                    </a>
+                                    </a> --}}
                                     <br><br>
                                     <img src="{{ asset('uploads/testimonials/' . $data->picture) }}" width="150">
                                     <hr>
@@ -154,7 +154,7 @@
                         </select>
                     </label>
                 </div>
-                <div class="sid_bvijay mb10">
+                {{-- <div class="sid_bvijay mb10">
                     <label class="field text">
                         <h4>Featured On Homepage</h4>
                         <select name="featured" class="form-control">
@@ -166,7 +166,7 @@
                             </option>
                         </select>
                     </label>
-                </div>
+                </div> --}}
             </div>
         </div>
 

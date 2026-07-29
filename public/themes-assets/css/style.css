@@ -1710,3 +1710,38 @@ h2.card-title{
         grid-template-columns: 1fr;
     }
 }
+
+/* partners */
+.partners-marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.partners-marquee-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 60px;
+    animation: partners-scroll 25s linear infinite;
+}
+
+.partners-marquee-wrapper:hover .partners-marquee-track {
+    animation-play-state: paused; /* optional: pause on hover */
+}
+
+.partner-logo {
+    height: 80px;      /* adjust to taste */
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+@keyframes partners-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%); /* moves exactly one full set since list is duplicated */
+    }
+}
