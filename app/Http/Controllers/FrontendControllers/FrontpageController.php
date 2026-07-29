@@ -71,21 +71,16 @@ class FrontpageController extends Controller
         $showInHome = DestinationModel::with([
             'trips' => fn ($query) => $query->where('is_menu', '1')->where('status', 1)
         ])->get()->flatMap->trips;
+        $partners = TestimonialModel::where('status', 1)->orderBy('sort_order', 'asc')->get();
 
-
-        $expeditions_type = PostTypeModel::where(['is_menu' => '1', 'id' => 3])->first();
-        $trekkings_type = PostTypeModel::where(['is_menu' => '1', 'id' => 4])->first();
-        $trekkings_list = TripModel::where('trip_type', 1)->orderBy('ordering', 'desc')->get();
-        $max_day = TripModel::max('duration');
-        $popular_trip = TripGroupModel::where('id', 4)->orderBy('ordering', 'asc')->first();
-        $testimonial = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
-        $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
+        // dd($partners);
 
         return view('themes.default.frontpage', compact(
             'banner',
             'about_me',
             'trips',
-            'showInHome'
+            'showInHome',
+            'partners',
         ));
     }
 
@@ -102,11 +97,11 @@ class FrontpageController extends Controller
             $posts = PostModel::where(['post_type' => $data->id, 'status' => '1', 'post_parent' => '0'])->orderBy('post_order', 'desc')->paginate(12);
         }
         $items = PostModel::where(['post_type' => $data->id, 'post_parent' => '0'])->orderBy('post_order', 'asc')->get();
-        $partners = null;
+        $partners = TestimonialModel::where('status', 1)->orderBy('sort_order', 'asc')->get();
         $pages =PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get();
         // dd($data, $pages);
 
-        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items','pages'));
+        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items','pages','partners'));
     }
 
 

@@ -169,83 +169,36 @@
         </div>
     </div>
 
-    <div class="sponsers-section">
 
+
+    @if($partners)
+    <div class="sponsers-section">
         <div class="container-fluid">
             <div class="row">
-                <div id="carousel" class="carousel slide carousel2" data-ride="carousel" style="padding:0px 80px;">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel" data-slide-to="1"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item  carousel2-item active">
-                            <div class="d-none d-lg-block">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
-                                </div>
-                            </div>
-                            <div class="d-none d-md-block d-lg-none">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
-                                </div>
-                            </div>
-                            <div class="d-none d-sm-block d-md-none">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="First slide">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="First slide">
-                                </div>
-                            </div>
-                            <div class="d-block d-sm-none">
-                                <img class="d-block w-100" src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="First slide">
-                            </div>
-                        </div>
-                        <div class="carousel-item carousel2-item">
-                            <div class="d-none d-lg-block">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
-                                </div>
-                            </div>
-                            <div class="d-none d-md-block d-lg-none">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/Shatterproof.jpeg') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
-                                </div>
-                            </div>
-                            <div class="d-none d-sm-block d-md-none">
-                                <div class="slide-box">
-                                    <img src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide">
-                                    <img src="{{ asset('themes-assets/img/Breeze.jpg') }}" alt="Second slide">
-                                </div>
-                            </div>
-                            <div class="d-block d-sm-none">
-                                <img class="d-block w-100" src="{{ asset('themes-assets/img/images.png') }}" alt="Second slide"
-                                    class="img-fluid">
-                            </div>
+                @if($partners->count() < 4)
+                    {{-- Static display, no slider --}}
+                    <div class="d-flex justify-content-center flex-wrap" style="padding:0px 80px; gap:30px;">
+                        @foreach($partners as $partner)
+                            <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                        @endforeach
+                    </div>
+                @else
+                    {{-- Continuous infinite slider --}}
+                    <div class="partners-marquee-wrapper" style="padding:0px 80px;">
+                        <div class="partners-marquee-track">
+                            {{-- Render list twice for seamless looping --}}
+                            @foreach($partners as $partner)
+                                <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                            @endforeach
+                            @foreach($partners as $partner)
+                                <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                            @endforeach
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                        <div class="slider-border"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </div>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                        <div class="slider-border"><span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </div>
-                    </a>
-                </div>
+                @endif
             </div>
         </div>
     </div>
+    @endif
 
 @stop

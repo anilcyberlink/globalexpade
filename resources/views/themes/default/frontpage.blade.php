@@ -185,8 +185,37 @@
     </div>
 </div> --}}
 
-
+@if($partners)
 <div class="sponsers-section">
+    <div class="container-fluid">
+        <div class="row">
+            @if($partners->count() < 4)
+                {{-- Static display, no slider --}}
+                <div class="d-flex justify-content-center flex-wrap" style="padding:0px 80px; gap:30px;">
+                    @foreach($partners as $partner)
+                        <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                    @endforeach
+                </div>
+            @else
+                {{-- Continuous infinite slider --}}
+                <div class="partners-marquee-wrapper" style="padding:0px 80px;">
+                    <div class="partners-marquee-track">
+                        {{-- Render list twice for seamless looping --}}
+                        @foreach($partners as $partner)
+                            <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                        @endforeach
+                        @foreach($partners as $partner)
+                            <img src="{{ asset('uploads/testimonials/' . $partner->picture) }}" alt="{{ $partner->name }}" class="partner-logo">
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+@endif
+
+{{-- <div class="sponsers-section">
 
     <div class="container-fluid">
         <div class="row">
@@ -262,5 +291,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

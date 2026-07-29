@@ -38,8 +38,6 @@ class TestimonialController extends Controller
 
             'name' => 'required',
 
-            'testimonial' => 'required',
-
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,webp'
 
         ]);

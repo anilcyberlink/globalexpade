@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <div class="tray tray-center">
-   
+
         <div class="panel">
             <div class="panel-body ph20">
                 <div class="tab-content">
@@ -17,9 +17,9 @@
                                         <th>SN</th>
                                         <th>Photo</th>
                                         <th>Name</th>
-                                        <th>Country</th>
+                                        {{-- <th>Country</th>
                                         <th>Rating</th>
-                                        <th>Featured</th>
+                                        <th>Featured</th> --}}
                                         <th>Status</th>
                                         <th>Ordering</th>
                                         <th class="text-left">Action</th>
@@ -48,7 +48,7 @@
                                                         {{ $row->name }}
                                                     </strong>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $row->country }}
                                                 </td>
                                                 <td>
@@ -66,7 +66,7 @@
                                                             No
                                                         </span>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     @if ($row->status)
                                                         <span class="text-success">

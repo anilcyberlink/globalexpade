@@ -11,7 +11,7 @@
             <div class="panel">
                 <div class="panel-heading">
                     <span class="panel-title">
-                        New Testimonial
+                        New Partners
                     </span>
                 </div>
                 <div class="panel-body">
@@ -23,7 +23,7 @@
                             <input type="text" name="name" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="col-lg-3 control-label">
                             Country
                         </label>
@@ -31,7 +31,7 @@
                             <input type="text" name="country" class="form-control">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
                             Title
@@ -94,7 +94,7 @@
                         <div class="col-lg-8">
                             <textarea name="testimonial" rows="8" class="form-control"></textarea>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label class="col-lg-3 control-label">
                             Picture
@@ -143,7 +143,7 @@
                         </select>
                     </label>
                 </div>
-                <div class="sid_bvijay mb10">
+                {{-- <div class="sid_bvijay mb10">
                     <label class="field text">
                         <h4>Featured On Homepage</h4>
                         <select name="featured" class="form-control">
@@ -155,7 +155,7 @@
                             </option>
                         </select>
                     </label>
-                </div>
+                </div> --}}
             </div>
         </div>
 
