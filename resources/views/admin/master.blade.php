@@ -207,7 +207,7 @@
                         </ul>
                     </li>
 
-                    {{-- <li class="">
+                    <li class="">
                         @if (Request::segment(2) == 'pagetype' ||
                                 Request::segment(2) == 'terms-and-conditions' ||
                                 Request::segment(2) == 'gear-list' ||
@@ -232,12 +232,12 @@
                                 </a>
                             </li>
 
-                            <li>
+                            {{-- <li>
                                 <a href="{{ url('admin/pagecategory') }}">
                                     <span class="fa fa-arrows"></span>
                                     Page Categories
                                 </a>
-                            </li>
+                            </li> --}}
 
                             @if ($pagetype)
                                 @foreach ($pagetype as $row)
@@ -250,7 +250,7 @@
                                 @endforeach
                             @endif
                         </ul>
-                    </li> --}}
+                    </li>
 
                     <li class="">
                         @if (Request::segment(2) == 'expedition' ||

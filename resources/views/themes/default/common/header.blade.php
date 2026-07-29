@@ -81,6 +81,21 @@
                                     <a href="{{ route('page.posttype_detail', $item->uri) }}"><span class="menu-u">{{ $item->post_type }}</span> </a>
                                 </li>
                             @endforeach
+
+                            @if($pagetypes->count() > 0)
+                                <li class="menu-item-has-children">
+                                    <a><span class="menu-u">Useful Info</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="sub-menu ">
+                                        <ul>
+                                            @foreach($pagetypes as $row)
+                                                <li><a href="{{url('info/' . $row->uri)}}">{{$row->page_type}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
