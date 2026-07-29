@@ -23,6 +23,7 @@ class HeaderComposer
     {
         $view->with('expeditions', DestinationModel::with('trips')->orderBy('id','asc')->get());
 		$view->with('posttypes', PostTypeModel::where(['is_menu'=>'1'])->where(['status'=>'1'])->get());
+        $view->with('pagetypes', PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get()); //->pagetypes
 
 
 
@@ -33,7 +34,6 @@ class HeaderComposer
         // $view->with('expeditions', DestinationModel::orderBy('ordering', 'asc')->get()); //->expeditions in header
         // $view->with('regions', TripModel::where('trip_type', 1)->where('status', '1')->orderBy('ordering', 'asc')->limit(8)->get()); //->regions in header
         // $view->with('regions',RegionModel::orderBy('ordering','asc')->get()); //->regions in header
-        $view->with('pagetypes', PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get()); //->pagetypes
         $view->with('activities', ActivityModel::orderBy('ordering', 'asc')->get());
         $view->with('random_tour', TripModel::where('status', '1')->inRandomOrder()->first());
     }

@@ -81,7 +81,6 @@ class FrontpageController extends Controller
         $testimonial = PostTypeModel::where('id', 5)->orderBy('ordering', 'asc')->first();
         $testimonials = TestimonialModel::where('status', 1)->where('featured', 1)->orderBy('sort_order', 'asc')->get();
 
-        // dd($showInHome);
         return view('themes.default.frontpage', compact(
             'banner',
             'about_me',
@@ -104,9 +103,10 @@ class FrontpageController extends Controller
         }
         $items = PostModel::where(['post_type' => $data->id, 'post_parent' => '0'])->orderBy('post_order', 'asc')->get();
         $partners = null;
-        // dd($data, $items);
+        $pages =PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get();
+        // dd($data, $pages);
 
-        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items'));
+        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items','pages'));
     }
 
 
@@ -551,10 +551,10 @@ class FrontpageController extends Controller
             abort(404);
         }
         $pages = PageTypeModel::where(['uri' => $uri])->first();
-        if ($pages) {
-            $data = PageModel::where(['page_type' => $pages->id, 'status' => '1'])->orderBy('page_order', 'asc')->paginate(9);
-            return view('themes.default.usefulinfo', compact('data', 'pages'));
-        }
+        $data = PageModel::where(['page_type' => $pages->id, 'status' => '1'])->orderBy('page_order', 'asc')->paginate(9);
+
+        // dd($pages,$data);
+        return view('themes.default.usefulinfo', compact('data', 'pages'));
         // return abort(404);
     }
 

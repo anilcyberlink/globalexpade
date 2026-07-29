@@ -62,7 +62,7 @@ img{
     background-color: white;
     padding-right: 60px;
     padding-left: 65px;
-}    
+}
 .header .item-left{
 	flex:0 0 15%;
 }
@@ -81,7 +81,7 @@ img{
 .header .item-right{
 	flex:0 0 0%;
 }
-.header .item-right a{ 
+.header .item-right a{
      text-decoration: none;
      font-size: 16px;
      color:#555555;
@@ -110,7 +110,7 @@ img{
 	position: absolute;
 	z-index: 500;
 	background-color:#19191a;
-	box-shadow: -2px 2px 70px -25px rgba(0,0,0,0.3); 
+	box-shadow: -2px 2px 70px -25px rgba(0,0,0,0.3);
 	padding: 20px 30px;
 	transition: all 0.5s ease;
 	margin-top:25px;
@@ -142,7 +142,7 @@ img{
 }
 .header .menu > ul > li .sub-menu.mega-menu > .list-item > ul > li{
    line-height: 1;
-   display: block; 
+   display: block;
 }
 .header .menu > ul > li .sub-menu.mega-menu > .list-item > ul > li > a {
 	padding:10px 0;
@@ -151,14 +151,14 @@ img{
 	color:#deddd9;
 	transition: color 0.3s ease;
 }
-.header .menu > ul > li .sub-menu.mega-menu{ 
+.header .menu > ul > li .sub-menu.mega-menu{
     left: 50%;
-    transform: translateX(-50%);	
+    transform: translateX(-50%);
 }
 
 .header .menu > ul > li .sub-menu.mega-menu-column-4{
   max-width: 1100px;
-  width: 100%; 	
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   padding:20px 15px;
@@ -266,7 +266,7 @@ img{
 		z-index: 1099;
 	}
 	.header .menu.active{
-	   transform: translate(0%);	
+	   transform: translate(0%);
 	}
 	.header .menu > ul > li{
 		line-height: 1;
@@ -329,7 +329,7 @@ img{
 		cursor: pointer;
 		line-height: 50px;
 		text-align: center;
-		color:#000000;	
+		color:#000000;
 		font-size: 25px;
 	}
 	.header .menu .menu-main{
@@ -366,7 +366,7 @@ img{
 	}
 	100%{
 	    opacity:1;
-		transform: translateX(0%);	
+		transform: translateX(0%);
 	}
 }
 @keyframes slideRight{
@@ -376,7 +376,7 @@ img{
 	}
 	100%{
 	    opacity:0;
-		transform: translateX(100%);	
+		transform: translateX(100%);
 	}
 }
 	.header .menu > ul > li .sub-menu.mega-menu-column-4 > .list-item img{
@@ -413,7 +413,7 @@ img{
 	}
 	.menu-overlay.active{
 	  visibility: visible;
-	  opacity:1;	
+	  opacity:1;
 	}
 }
 .nav-more{
@@ -476,7 +476,7 @@ p.section-details{
 .swiper-button-next{
     background-image: url("../icons/right-arrow.png") !important;
     background-size: contain !important;
- 
+
 }
 .swiper-container {
       padding-top: 50px;
@@ -550,7 +550,7 @@ p.section-details{
 @media screen and (max-width:700px) {
     .text-primary--main{
         font-size: 35px;
-       
+
     }
     .text-primary--sub{
         font-family: 'Playfair Display', serif;
@@ -728,7 +728,7 @@ p.section-details{
 @media (min-width: 576px) {
     .rounded-nav {
       border-radius: 50rem !important;
-       
+
     }
   }
   @media (min-width: 576px) {
@@ -775,11 +775,11 @@ body{
 }
 .carousel {
   width: 100%;
-  
+
 }
 .carousel2{
     height: 30vh;
-    
+
 }
 .carousel2 .carousel2-item img{
     object-fit: contain;
@@ -792,10 +792,10 @@ body{
   justify-content: space-between;
 }
 .slider-border{
-    background-color:#f7821d; 
-    padding:10px 10px 10px 10px ; 
-    border-radius: 100%; 
-    display:flex; 
+    background-color:#f7821d;
+    padding:10px 10px 10px 10px ;
+    border-radius: 100%;
+    display:flex;
     justify-content:center;
 }
 
@@ -805,7 +805,7 @@ body{
     flex: 0 0 50%;
     max-width: 50%;
   }
-  
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -879,8 +879,8 @@ body{
     padding-right: 150px;
 } */
 .exp-img{
-    border-top-left-radius: 0  !important; 
-    border-top-right-radius: 0 !important; 
+    border-top-left-radius: 0  !important;
+    border-top-right-radius: 0 !important;
     height: 35vh;
     object-fit: cover ;
 }
@@ -894,7 +894,7 @@ body{
 	color:#19191a;
 	font-size: 22px;
     margin-bottom: 11px;
-   
+
 }
 .exped-section-title a:hover{
     color:#f7821d;
@@ -1036,7 +1036,7 @@ h5.card-title::after{
      letter-spacing: 2px;
      font-size: 33px;
      margin-bottom: 3rem;
-     position: relative; 
+     position: relative;
  }
  h1.message-title::after{
      content: "";
@@ -1045,7 +1045,7 @@ h5.card-title::after{
      position: absolute;
      padding-top: 0.7rem;
      left: 18%;
-     width: 12%;  
+     width: 12%;
  }
 .page-title--secondary{
 	color:white;
@@ -1098,11 +1098,11 @@ h5.card-title::after{
     font-weight: 500;
     font-size: 17px;
     margin: 20px 0px;
-    letter-spacing: 0.08rem;   
+    letter-spacing: 0.08rem;
 }
 .detail-trip-icon{
     background-color: #E9E8E8;
-    padding: 50px 50px 70px 50px; 
+    padding: 50px 50px 70px 50px;
 }
 .detail-trip-icon-content {
     display: flex;
@@ -1142,7 +1142,7 @@ h5.card-title::after{
     box-shadow: rgb(99 99 99 / 20%) 0px 2px 10px 0px;
 }
 .date-content {
-    display: flex;   
+    display: flex;
     margin: 20px 0px;
 }
 .date-left-content{
@@ -1165,7 +1165,7 @@ h5.card-title::after{
     }
     .trip-right-content-lower,.date-right-content{
         font-size: 14px;
-       
+
        }
        .trip-left-content,.date-left-content{
         height: 45px;
@@ -1187,7 +1187,7 @@ h5.card-title::after{
 .para-font{
     text-align: justify;
     font-family: 'Mulish', sans-serif;
-    
+
 }
 .overview-section{
     padding: 70px;
@@ -1197,7 +1197,7 @@ h5.card-title::after{
     padding:70px;
 }
 .itenary-row{
-    background-color: #E9E8E8; 
+    background-color: #E9E8E8;
     padding: 30px 0px;
     margin-bottom: 50px;
 }
@@ -1212,7 +1212,7 @@ h5.card-title::after{
     font-family: 'Mulish', sans-serif;
     font-size:16px;
     font-weight: 600;
-    letter-spacing: 0.08rem; 
+    letter-spacing: 0.08rem;
     margin: 10px 0px;
 }
 
@@ -1255,7 +1255,7 @@ h5.card-title::after{
     background-color: #E9E8E8;
     padding: 20px;
     position: sticky;
-    top: 0; 
+    top: 0;
 }
 .sidebar{
     padding: 0px;
@@ -1278,7 +1278,7 @@ h5.card-title::after{
     padding: 15px 10px;
     margin: 5px 0px;
     width: 100%;
-    
+
 }
 .button-yellow:hover{
     background-color:#007bff;
@@ -1334,13 +1334,13 @@ h5.card-title::after{
     padding: 80px 0px;
 }
 .about-top-content{
-    padding: 60px 0px 20px 0px; 
+    padding: 60px 0px 20px 0px;
 }
 .about-bottom-content{
     padding-left: 40px;
 }
 .image1{
-    top: 50px; 
+    top: 50px;
 }
 
 .why-us{
@@ -1375,7 +1375,7 @@ h5.card-title::after{
         margin-bottom:35px;
     }
     .offers-content {
-        padding-right: 10px; 
+        padding-right: 10px;
     }
     .header{
         padding: 20px 60px;
@@ -1401,7 +1401,7 @@ h5.card-title::after{
     }
 }
 @media screen and (max-width:500px){
-    
+
     .btn-tour{
         margin-bottom:35px;
     }
@@ -1463,7 +1463,7 @@ h5.card-title::after{
     padding: 15px 20px;
 }
 .form-font{
-    font-weight:900; 
+    font-weight:900;
     font-size:18px;
     color:#f7821d
 }
@@ -1526,7 +1526,7 @@ h2.card-title{
 .footer-privacy p{
     margin-right: 20px;
     font-weight: 500;
-   
+
 }
 @media screen and (max-width:700px) {
     .footer-privacy p{
@@ -1536,3 +1536,59 @@ h2.card-title{
     }
   }
 /********************************************************  */
+/* Fix for plain (non-mega) sub-menu dropdowns like Useful Info */
+.menu-item-has-children > .sub-menu:not(.mega-menu) {
+    padding: 10px 0;
+}
+
+.menu-item-has-children > .sub-menu:not(.mega-menu) ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-item-has-children > .sub-menu:not(.mega-menu) ul li {
+    margin: 0;
+}
+
+.menu-item-has-children > .sub-menu:not(.mega-menu) ul li a {
+    display: block;
+    padding: 8px 20px;
+    color: #ffffff !important;          /* adjust to match your theme's light text */
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.menu-item-has-children > .sub-menu:not(.mega-menu) ul li a:hover {
+    color: #f7821d !important; /* your orange accent, adjust as needed */
+}
+
+/* list pages */
+/* Wider gutter between the two cards, matching the reference spacing */
+.useful-info-row {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.useful-info-row > [class*="col-"] {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+/* Fixed height + cover-fit for the card image (Bootstrap doesn't set this by default) */
+.useful-info-img {
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Sharp corners, no shadow — matches reference design */
+.useful-info-card {
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.useful-info-card .card-img-overlay {
+    background: rgba(0, 0, 0, 0.15);
+}
