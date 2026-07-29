@@ -566,6 +566,7 @@ class FrontpageController extends Controller
         $sorted = $detail->collect();
         $details = $sorted->sortBy('ordering');
         $links = PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get();
+        // dd($data, $details, $links, $doc);
 
         return view('themes.default.usefulinfo-detail', compact('data', 'details', 'links', 'doc'));
     }
