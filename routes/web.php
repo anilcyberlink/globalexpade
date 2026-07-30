@@ -57,6 +57,8 @@ Route::get('trip/{uri}', 'FrontendControllers\FrontpageController@tripdetail')->
 Route::get('book/{uri}', 'FrontendControllers\FrontpageController@showbooking')->name('page.booking');
 Route::post('trip-booking', 'FrontendControllers\FrontpageController@post_tripbooking')->name('post-tripbooking');
 Route::get('booking-success', 'FrontendControllers\FrontpageController@showbookingsuccess')->name('page.bookingsuccess');
+Route::post('inquiry-now', 'FrontendControllers\FrontpageController@post_inquiry')->name('post-inquiry');
+Route::post('contact', 'FrontendControllers\FrontpageController@contact_us')->name('post.contact');
 
 Route::get('activity/{uri}.html', 'FrontendControllers\FrontpageController@travellist')->name('page.activitydetail');
 Route::get('region/{uri}.html', 'FrontendControllers\FrontpageController@regionlist')->name('page.regionlist');
@@ -64,8 +66,6 @@ Route::get('tours/{uri?}.html', 'FrontendControllers\FrontpageController@destina
 Route::get('expeditions/list.html', 'FrontendControllers\FrontpageController@expeditionlist')->name('page.expeditionlist');
 Route::get('trips/{luxury}.html', 'FrontendControllers\FrontpageController@luxuryTrip')->name('page.luxurytriplist');
 Route::any('search-trip', 'FrontendControllers\FrontpageController@show_search_form')->name('search-trip');
-Route::post('inquiry-now', 'FrontendControllers\FrontpageController@post_inquiry')->name('post-inquiry');
-Route::post('contact', 'FrontendControllers\FrontpageController@contact_us')->name('post.contact');
 Route::get('team/{uri}', 'FrontendControllers\FrontpageController@teamdetail')->name('team.teamdetail');
 Route::get('page/activities/{uri}', 'FrontendControllers\FrontpageController@activities')->name('page.activities');
 Route::post('page/customize-trip', 'FrontendControllers\FrontpageController@customize_trip')->name('customize-trip');

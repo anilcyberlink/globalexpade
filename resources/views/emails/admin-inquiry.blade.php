@@ -1,57 +1,86 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{$setting->site_name}}</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width:100%;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding:8px;
-        }
-    </style>
-</head>
-<body style="font-family: sans-serif">
-<div style="margin:0 auto; max-width:700px; width:100%;">
- 
-    <h3>Trip Inquiry Details:</h3>
-    <table>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <title>New Trip Inquiry</title>
+</head>
+
+<body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f5f7fa;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f7fa; padding:20px 0;">
         <tr>
-            <td bgcolor="#ddd"  ><strong>Full Name</strong></td>
-            <td bgcolor="#ddd" >{{ $name }}</td>
-        </tr>
-        <tr>
-            <td><strong>Email</strong></td>
-            <td>{{ $mail }}</td>
-        </tr>
-        <tr>
-            <td><strong>Phone </strong></td>
-            <td>{{ $contact }}</td>
-        </tr>
-             {{-- <tr>
-            <td><strong>Hotel</strong></td>
-            <td>{{ post_parent_byId($hotel)->post_title }}</td>
-        </tr> --}}
-        <!--<tr> -->
-        <!--    <td><strong>Number of People</strong></td>-->
-        <!--    <td>{{ $num_ppl }}</td>-->
-        <!--</tr>-->
-             <tr>
-            <td><strong>Trip Name</strong></td>
-            <td>{{tripdetail($trip_id)->trip_title}}</td>
-        </tr>
-        
-        <tr>
-            <td><strong>Message</strong></td>
-            <td>{!! $messages  !!}</td>
+            <td align="center">
+
+                <!-- Main Container -->
+                <table width="600" cellpadding="0" cellspacing="0"
+                    style="background:#ffffff; border-radius:8px; overflow:hidden;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#0d6efd; padding:20px; text-align:center;">
+                            <img src="{{ asset('themes-assets/img/logo.png') }}" alt="Logo"
+                                style="max-width:150px;">
+                            <h2 style="color:#ffffff; margin:10px 0 0;">New Trip Inquiry</h2>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:25px;">
+
+                            <p style="margin:0 0 20px; font-size:14px; color:#555;">
+                                You have received a new trip inquiry. Details are below:
+                            </p>
+
+                            <!-- Info Table -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+
+                                <tr>
+                                    <td style="padding:10px; background:#f1f1f1; font-weight:bold; width:35%;">Trip</td>
+                                    <td style="padding:10px;">{{ $trip_title }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px; background:#f9f9f9; font-weight:bold;">Full Name</td>
+                                    <td style="padding:10px;">{{ $name }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px; background:#f1f1f1; font-weight:bold;">Email</td>
+                                    <td style="padding:10px;">{{ $email }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px; background:#f9f9f9; font-weight:bold;">Subject</td>
+                                    <td style="padding:10px;">{{ $subject }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px; background:#f1f1f1; font-weight:bold;">Message</td>
+                                    <td style="padding:10px; line-height:1.5;">
+                                        {{ $user_message }}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background:#f1f1f1; padding:15px; text-align:center; font-size:12px; color:#777;">
+                            © {{ date('Y') }} {{ $setting->site_name }}. All rights reserved.
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
         </tr>
     </table>
 
-
-</div>
 </body>
+
 </html>
