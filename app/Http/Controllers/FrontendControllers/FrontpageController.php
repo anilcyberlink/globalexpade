@@ -66,10 +66,10 @@ class FrontpageController extends Controller
         $banner = BannerModel::all();
         $about_me = PostTypeModel::where(['id' => '1'])->first();
         $trips = DestinationModel::with([
-            'trips' => fn ($query) => $query->where('status', 1)
+            'trips' => fn($query) => $query->where('status', 1)
         ])->get()->flatMap->trips->take(6);
         $showInHome = DestinationModel::with([
-            'trips' => fn ($query) => $query->where('is_menu', '1')->where('status', 1)
+            'trips' => fn($query) => $query->where('is_menu', '1')->where('status', 1)
         ])->get()->flatMap->trips;
         $partners = TestimonialModel::where('status', 1)->orderBy('sort_order', 'asc')->get();
 
@@ -98,10 +98,10 @@ class FrontpageController extends Controller
         }
         $items = PostModel::where(['post_type' => $data->id, 'post_parent' => '0'])->orderBy('post_order', 'asc')->get();
         $partners = TestimonialModel::where('status', 1)->orderBy('sort_order', 'asc')->get();
-        $pages =PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get();
+        $pages = PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get();
         // dd($data, $pages);
 
-        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items','pages','partners'));
+        return view('themes.default.' . $data['template'] . '', compact('data', 'posts', 'items', 'pages', 'partners'));
     }
 
 
@@ -174,11 +174,10 @@ class FrontpageController extends Controller
             $data->save();
         }
         // $similar_trips = $data->relatedtrips()->orderBy('ordering', 'asc')->get();
-        $similar_tripsId= $data->relatedtrips()->pluck('related_trip_id');
+        $similar_tripsId = $data->relatedtrips()->pluck('related_trip_id');
         if ($similar_tripsId->isNotEmpty()) {
             $similar_trips = TripModel::with('destinations')->whereIn('id', $similar_tripsId)->take(3)->get();
-        }
-        else{
+        } else {
             $similar_trips = TripModel::with('destinations')->where('uri', '!=', $uri)->orderBy('ordering', 'desc')->take(3)->get();
         }
         // dd($data,$similar_trips);
@@ -236,34 +235,49 @@ class FrontpageController extends Controller
 
     public function post_inquiry(Request $request)
     {
-        if ($request->isMethod('post')) {
+        $g_recaptcha_response = $request->input('g_recaptcha_response');
+        $result = $this->getCaptcha($g_recaptcha_response);
+
+        if (($result->success == true) && ($request->isMethod('post'))) {
             $request->validate([
+                'trip_uri'   => 'required|string|exists:cl_trip_details,uri',
                 'name' => 'required',
                 'email' => 'required|email',
-                'number' => 'required',
-                // 'h-captcha-response' => 'required|HCaptcha',
+                'subject' => 'required',
+                'message' => 'required'
             ]);
-            $post = new TripInquiryModel();
-            $post->title = $request->title;
-            $post->trip_id = $request->trip_id;
-            $post->name = $request->name;
-            $post->email = $request->email;
-            $post->number = $request->number;
-            $post->review = $request->review;
-            $post->country = $request->country;
-            $post->trip_start_date = $request->trip_start_date;
+
+            $trip = TripModel::where('uri', $request->trip_uri)->firstOrFail();
+            // dd($request->all(), $trip);
+
+            $post = TripInquiryModel::create([
+                'trip_id' => $trip->id,
+                'title'   => $trip->trip_title,
+                'name'    => $request->name,
+                'email'   => $request->email,
+                'review'  => $request->subject,
+                'comments'  => $request->message,
+            ]);
 
             if ($post->save()) {
-                // return new \App\Mail\TripInquiry($request->email);
-                // return new \App\Mail\AdminInquiryMail($request->email);
+
+                // return new AdminInquiryMail($post);
                 try {
-                    Mail::to('info@arnoldcoster.com')->send(new AdminInquiryMail());
+                    // Mail::to('info@globalexped.com')->send(new AdminInquiryMail($post));
                 } catch (\Exception $e) {
                     \Log::error('Mail failed: ' . $e->getMessage());
                 }
 
-                return back()->with('message', 'Inquiry sent successfully');
+                return back()->with([
+                    'success' => true,
+                    'message' => 'Inquiry Sent successfully'
+                ]);
             }
+        } else {
+            return back()->with([
+                'error' => true,
+                'message' => 'You are robot.'
+            ]);
         }
     }
 

@@ -314,8 +314,11 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="POST" action="" id="inquiryForm">
+                    <form method="POST" action="{{ route('post-inquiry') }}" id="inquiryForm">
                         @csrf
+                        <input type="hidden" id="g_recaptcha_response" name="g_recaptcha_response" />
+                        <input type="hidden" id="trip_uri" name="trip_uri" value="{{ $data->uri }}"/>
+
                         <div class="form-group">
                             <label>Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" required>
@@ -325,8 +328,8 @@
                             <input type="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" name="subject" class="form-control">
+                            <label>Subject <span class="text-danger">*</span></label>
+                            <input type="text" name="subject" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Message</label>
@@ -382,5 +385,22 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('SITE_KEY') }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            function executeRecaptcha() {
+                grecaptcha.execute('<?php echo env('SITE_KEY'); ?>', {
+                    action: 'homepage'
+                }).then(function(token) {
+                    document.getElementById('g_recaptcha_response').value = token;
+                });
+            }
 
+            // Initial execution of reCAPTCHA
+            executeRecaptcha();
+
+            // Refresh the reCAPTCHA token every 100 seconds (less than 2 minutes)
+            setInterval(executeRecaptcha, 900000);
+        });
+    </script>
 @stop
