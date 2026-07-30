@@ -26,10 +26,6 @@ Route::get('travel-guide/{uri}', 'FrontendControllers\GuideController@travel_gui
 Route::get('trip-insurance/{uri}', 'FrontendControllers\GuideController@trip_insurance')->name('trip_insurance');
 Route::get('trip-payment/{uri}', 'FrontendControllers\GuideController@payment')->name('payment');
 
-// Normal Pages
-Route::get('{uri}.html', 'FrontendControllers\FrontpageController@pagedetail')->name('page.pagedetail');
-Route::get('type-{uri}', 'FrontendControllers\FrontpageController@posttype')->name('page.posttype_detail');
-
 // For pagetype
 Route::delete('admin/pagetype/{id}', 'AdminControllers\Pages\PageTypeController@destroy')->name('type.pagetype.destroy');
 Route::delete('delete_pagetype_thumb/{id}', 'AdminControllers\Pages\PageTypeController@delete_pagetype_thumb');
@@ -57,23 +53,29 @@ Route::get('expeditions', 'FrontendControllers\FrontpageController@expeditions')
 Route::get('treks', 'FrontendControllers\FrontpageController@treks')->name('page.trekking');
 Route::get('trip/{uri}', 'FrontendControllers\FrontpageController@tripdetail')->name('page.tripdetail');
 
+// Trip Booking
 Route::get('book/{uri}', 'FrontendControllers\FrontpageController@showbooking')->name('page.booking');
+Route::post('trip-booking', 'FrontendControllers\FrontpageController@post_tripbooking')->name('post-tripbooking');
 Route::get('booking-success', 'FrontendControllers\FrontpageController@showbookingsuccess')->name('page.bookingsuccess');
+
 Route::get('activity/{uri}.html', 'FrontendControllers\FrontpageController@travellist')->name('page.activitydetail');
 Route::get('region/{uri}.html', 'FrontendControllers\FrontpageController@regionlist')->name('page.regionlist');
 Route::get('tours/{uri?}.html', 'FrontendControllers\FrontpageController@destinationlist')->name('page.destinationlist');
 Route::get('expeditions/list.html', 'FrontendControllers\FrontpageController@expeditionlist')->name('page.expeditionlist');
 Route::get('trips/{luxury}.html', 'FrontendControllers\FrontpageController@luxuryTrip')->name('page.luxurytriplist');
 Route::any('search-trip', 'FrontendControllers\FrontpageController@show_search_form')->name('search-trip');
-Route::post('trip-booking', 'FrontendControllers\FrontpageController@post_tripbooking')->name('post-trip');
 Route::post('inquiry-now', 'FrontendControllers\FrontpageController@post_inquiry')->name('post-inquiry');
-Route::post('contact', 'FrontendControllers\FrontpageController@contact_us')->name('contact');
+Route::post('contact', 'FrontendControllers\FrontpageController@contact_us')->name('post.contact');
 Route::get('team/{uri}', 'FrontendControllers\FrontpageController@teamdetail')->name('team.teamdetail');
 Route::get('page/activities/{uri}', 'FrontendControllers\FrontpageController@activities')->name('page.activities');
 Route::post('page/customize-trip', 'FrontendControllers\FrontpageController@customize_trip')->name('customize-trip');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+// Normal Pages
+Route::get('{uri}.html', 'FrontendControllers\FrontpageController@pagedetail')->name('page.pagedetail');
+Route::get('type-{uri}', 'FrontendControllers\FrontpageController@posttype')->name('page.posttype_detail');
 
 //================================= Backend Routes ============================//
 Route::middleware(['auth'])->group(function () {
@@ -109,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('activity-isdefault/{id?}', 'AdminControllers\Travels\ActivityController@isdefault')->name('activity.isdefault');
     Route::get('admin/tour-trip/{id}', 'AdminControllers\Destinations\DestinationController@filter'); //Was trip-expedition
     Route::get('admin/trip-region/{id}', 'AdminControllers\Travels\RegionController@filter');
-    Route::delete('admin/tour-trip/{id}', 'AdminControllers\Destinations\TripController@destroy'); //delete Trip
+    // Route::delete('admin/tour-trip/{id}', 'AdminControllers\Destinations\TripController@destroy'); //delete Trip
     Route::delete('admin/trip-region/{id}', 'AdminControllers\Travels\TripController@destroy');
     Route::put('tripstatus/{id}', 'AdminControllers\Travels\TripController@tripstatus')->name('admin.tripstatus');
     Route::get('admin/banner-trip', 'AdminControllers\Travels\TripController@banner_trip')->name('banner.trip');
@@ -179,7 +181,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('delete_pdf/{id}', 'AdminControllers\Travels\TripController@delete_pdf');
     Route::delete('delete_trip_banner_thumb/{id}', 'AdminControllers\Travels\TripController@delete_trip_banner_thumb');
     Route::delete('delete_map_thumb/{id}', 'AdminControllers\Travels\TripController@delete_map_thumb');
-    Route::delete('delete_activity_banner/{id}', 'AdminControllers\Travels\ActivityGroupController@delete_activity_banner');
+    // Route::delete('delete_activity_banner/{id}', 'AdminControllers\Travels\ActivityGroupController@delete_activity_banner');
     Route::get('delete_worked_with/{id}', 'AdminControllers\Settings\SettingController@banner_destroy')->name('banner-destroy');
     Route::get('delete_banner/{id}', 'AdminControllers\Settings\SettingController@banner_remove')->name('banner-remove');
     Route::get('delete_affililiated_with/{id}', 'AdminControllers\Settings\SettingController@mobile_banner_destroy')->name('mob-banner-destroy');

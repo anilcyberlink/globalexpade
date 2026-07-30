@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Inquiry\BookingModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -10,26 +11,26 @@ class AdminBookingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $booking;
+    public BookingModel $booking;
 
-    public function __construct($booking)
+    public function __construct(BookingModel $booking)
     {
         $this->booking = $booking;
     }
 
     public function build()
     {
-        return $this->view('emails.admin-bookingmail')
+        return $this->subject('New Trip Booking')
+            ->view('emails.admin-bookingmail')
             ->with([
-                'start_date' => $this->booking->departure_date,
-                'num_ppl'    => $this->booking->num_people,
-                'email'      => $this->booking->email,
-                'name'       => $this->booking->full_name,
-                'country'    => $this->booking->country,
-                'contact'    => $this->booking->phone,
-                'messages'   => $this->booking->comments,
-                'trip_title' => $this->booking->title,
-            ])
-            ->subject('New Trip Booking Inquiry');
+                'trip_title'     => $this->booking->title,
+                'name'           => $this->booking->full_name,
+                'email'          => $this->booking->email,
+                'contact'        => $this->booking->phone,
+                'country'        => $this->booking->country,
+                'arrival_date'   => $this->booking->arrival_date,
+                'departure_date' => $this->booking->departure_date,
+                'user_message'        => $this->booking->comments,
+            ]);
     }
 }

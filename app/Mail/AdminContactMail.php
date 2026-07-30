@@ -5,28 +5,29 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Model\Contact;
 
 class AdminContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public Contact $data;
 
-    public function __construct($data)
+    public function __construct(Contact $data)
     {
         $this->data = $data;
     }
 
     public function build()
     {
-        return $this->view('emails.admin-contactmail')
+        return $this->subject('Contact Inquiry')
+            ->view('emails.admin-contactmail')
             ->with([
-                'country'  => $this->data['country'],
-                'mail'     => $this->data['email'],
-                'name'     => $this->data['full_name'],
-                'contact'  => $this->data['number'],
-                'messages' => $this->data['message'],
-            ])
-            ->subject('Contact Inquiry');
+                'name'     => $this->data->full_name,
+                'mail'     => $this->data->email,
+                'contact'  => $this->data->number,
+                'subject'  => $this->data->subject,
+                'user_message'  => $this->data->message,
+            ]);
     }
 }
