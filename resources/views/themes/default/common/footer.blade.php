@@ -91,6 +91,7 @@
 <script src="{{ asset('themes-assets/js/bootstrap.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/js/swiper.js"></script>
 <script src="{{ asset('themes-assets/js/main.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
     var mySwiper = new Swiper('.swiper-container', {

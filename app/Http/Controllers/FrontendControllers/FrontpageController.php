@@ -234,57 +234,6 @@ class FrontpageController extends Controller
         return view('themes.default.team-single', compact('data'));
     }
 
-    public function post_tripbooking(Request $request)
-    {
-        $request->validate([
-            'trip_id'     => 'required|integer',
-            'full_name'   => 'required|string|max:255',
-            'email'       => 'required|email',
-            'phone'       => 'required|string|max:20',
-            'country'     => 'required|string|max:100',
-            'num_people'  => 'required|integer|min:1',
-            'departure_date' => 'required|date',
-            'terms_conditions' => 'required',
-            // 'h-captcha-response' => 'required|HCaptcha',
-        ]);
-
-        $booking = BookingModel::create([
-            'trip_id'          => $request->trip_id,
-            'title'            => $request->title,
-            'departure_date'   => $request->departure_date,
-            'num_people'       => $request->num_people,
-            'full_name'        => $request->full_name,
-            'email'            => $request->email,
-            'country'          => $request->country,
-            'phone'            => $request->phone,
-            'comments'         => $request->comments,
-            'terms_conditions' => $request->terms_conditions,
-            'status'           => 0,
-        ]);
-
-        if ($booking) {
-
-            // ✅ Send email (optional)
-            // return new UserBookingMail($booking);
-            try {
-                Mail::to('info@arnoldcoster.com')->send(new AdminBookingMail($booking));
-            } catch (\Exception $e) {
-                \Log::error('Mail failed: ' . $e->getMessage());
-            }
-            try {
-                Mail::to($booking->email)->send(new UserBookingMail($booking));
-            } catch (\Exception $e) {
-                \Log::error('Mail failed: ' . $e->getMessage());
-            }
-
-            return redirect()
-                ->route('page.bookingsuccess')
-                ->with('success', 'Booking completed successfully');
-        }
-
-        return back()->with('error', 'Something went wrong. Please try again.');
-    }
-
     public function post_inquiry(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -439,34 +388,45 @@ class FrontpageController extends Controller
 
     public function contact_us(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'first_name' => 'required',
-            'email' => 'required|email',
-            'number' => 'required',
-            'country' => 'required',
-            'h-captcha-response' => 'required|HCaptcha',
-        ]);
+        $g_recaptcha_response = $request->input('g_recaptcha_response');
+        $result = $this->getCaptcha($g_recaptcha_response);
+        // dd($request->all(),$result);
 
-        if ($request->isMethod('post')) {
-
-            $data = Contact::create([
-                'full_name' => $request->first_name,
-                'email' => $request->email,
-                'number' => $request->number,
-                'message' => $request->message,
-                'country' => $request->country,
-                'title' => $request->title
+        if ($result->success == true) {
+            $request->validate([
+                'full_name' => 'required',
+                'email' => 'required|email',
+                'number' => 'required',
+                'subject' => 'required'
             ]);
 
-            // return new AdminContactMail($data);
-            try {
-                Mail::to('info@arnoldcoster.com')->send(new AdminContactMail($data));
-            } catch (\Exception $e) {
-                \Log::error('Mail failed: ' . $e->getMessage());
-            }
+            if ($request->isMethod('post')) {
 
-            return back()->with('message', 'Contact Form submitted successfully');
+                $data = Contact::create([
+                    'full_name' => $request->full_name,
+                    'email' => $request->email,
+                    'number' => $request->number,
+                    'message' => $request->message,
+                    'subject' => $request->subject
+                ]);
+
+                // return new AdminContactMail($data);
+                try {
+                    // Mail::to('info@globalexped.com')->send(new AdminContactMail($data));
+                } catch (\Exception $e) {
+                    \Log::error('Mail failed: ' . $e->getMessage());
+                }
+
+                return back()->with([
+                    'success' => true,
+                    'message' => 'Contact Form submitted successfully'
+                ]);
+            }
+        } else {
+            return back()->with([
+                'error' => true,
+                'message' => 'You are robot.'
+            ]);
         }
     }
 
@@ -509,9 +469,75 @@ class FrontpageController extends Controller
     {
         $booking = TripModel::where('uri', $uri)->first();
         $terms = PageTypeModel::where('id', '1')->first();
+
+        // dd($booking, $terms );
         return view('themes.default.booking', compact('booking', 'terms'));
     }
+    public function post_tripbooking(Request $request)
+    {
+        $g_recaptcha_response = $request->input('g_recaptcha_response');
+        $result = $this->getCaptcha($g_recaptcha_response);
 
+        if ($result->success == true) {
+            $request->validate([
+                'trip_uri'   => 'required|string|exists:cl_trip_details,uri',
+                'name'       => 'required|string|max:255',
+                'email'      => 'required|email|max:255',
+                'phone'      => 'required|string|max:20',
+                'country'    => 'required|string|max:100',
+                'arrival'    => 'required|date|after_or_equal:today',
+                'departure'  => 'required|date|after:arrival',
+                'find_us'    => 'nullable|string|max:255',
+                'message'    => 'nullable|string',
+                'terms'      => 'accepted',
+            ]);
+            $trip = TripModel::where('uri', $request->trip_uri)->first();
+
+            // dd($request->all(),$trip);
+
+
+            $booking = BookingModel::create([
+                'trip_id'          => $trip->id,
+                'title'            => $trip->trip_title,
+                'full_name'        => $request->name,
+                'arrival_date'     => $request->arrival,
+                'departure_date'   => $request->departure,
+                'email'            => $request->email,
+                'country'          => $request->country,
+                'phone'            => $request->phone,
+                'num_people'       => $request->find_us,
+                'comments'         => $request->message,
+                'terms_conditions' => $request->terms,
+                'status'           => 0,
+            ]);
+
+            if ($booking) {
+
+                // return new UserBookingMail($booking);
+                try {
+                    // Mail::to('info@globalexped.com')->send(new AdminBookingMail($booking));
+                } catch (\Exception $e) {
+                    \Log::error('Mail failed: ' . $e->getMessage());
+                }
+                try {
+                    // Mail::to($booking->email)->send(new UserBookingMail($booking));
+                } catch (\Exception $e) {
+                    \Log::error('Mail failed: ' . $e->getMessage());
+                }
+
+                return redirect()->route('page.bookingsuccess')
+                    ->with([
+                        'success' => true,
+                        'message' => 'Booking successfully!'
+                    ]);
+            }
+        } else {
+            return back()->with([
+                'error' => true,
+                'message' => 'You are robot.'
+            ]);
+        }
+    }
 
     public function showbookingsuccess()
     {
@@ -583,5 +609,13 @@ class FrontpageController extends Controller
             'testimonials',
             'data'
         ));
+    }
+
+    private function getCaptcha($secretKey)
+    {
+        $secret_key = env('SECRET_KEY');
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret_key . "&response={$secretKey}");
+        $result = json_decode($response);
+        return $result;
     }
 }
