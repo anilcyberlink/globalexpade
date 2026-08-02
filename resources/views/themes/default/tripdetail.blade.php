@@ -6,63 +6,6 @@
 @section('brief', $data->trip_excerpt)
 @section('content')
 
-    <style>
-        .route-map-img {
-            max-width: 100%;
-            max-height: 600px;
-            /* adjust to taste */
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .modal-body p {
-            margin-bottom: 15px;
-        }
-
-        .modal-header {
-            padding: 15px 20px;
-        }
-
-        .modal-title {
-            font-size: 28px;
-        }
-
-        /* Inquiry modal fix */
-        #ex1 .modal-dialog {
-            display: flex;
-            align-items: center;
-            min-height: calc(100vh - 3.5rem);
-            max-width: 500px;
-            margin: 1.75rem auto;
-        }
-
-        #ex1 .modal-content {
-            display: flex;
-            flex-direction: column;
-            max-height: calc(100vh - 3.5rem);
-            width: 100%;
-        }
-
-        #ex1 .modal-header,
-        #ex1 .modal-footer {
-            flex-shrink: 0;
-        }
-
-        #ex1 .modal-body {
-            overflow-y: auto;
-            flex-grow: 1;
-            min-height: 0;
-            /* critical: prevents flex item from ignoring parent's max-height */
-        }
-    </style>
-
     <!-- Banner Section -->
     <div class="detail-trip-header d-flex justify-content-end flex-column"
         @if (!empty($data->banner)) style="background-image: url('{{ asset('uploads/banners/' . $data->banner) }}');
@@ -200,26 +143,35 @@
                 @if ($itinerary->count() > 0)
                     <div class="row itenary-row">
                         <div class="container itenary-div-section">
-                            @foreach ($itinerary as $value)
-                                <div class="row itenary-div ">
-                                    <div class=" d-flex justify-content-between" style="width:100%;">
-                                        <div>
-                                            <p class="itenary-top"><span
-                                                    style="color: #007bff;font-family: 'Playfair Display', serif;">Day
-                                                    {{ $value->days }} :</span>
-                                                {{ $value->title }} </p>
-                                        </div>
-                                        <div style="padding-top:7px;"><a data-toggle="collapse" href="#collapseExample"
-                                                role="button" aria-expanded="false" aria-controls="collapseExample"><img
-                                                    src="{{ asset('themes-assets/icons/down.png') }}" height="20"
-                                                    width="20"></a></div>
-                                    </div>
-                                    <div class="collapse" id="collapseExample">
+                            @foreach ($itinerary as $key => $value)
+                                <div class="row itenary-div">
+
+                                    <a href="#collapse{{ $key }}"
+                                        class="d-flex justify-content-between align-items-center w-100"
+                                        data-toggle="collapse" role="button" aria-expanded="false"
+                                        aria-controls="collapse{{ $key }}"
+                                        style="text-decoration:none; color:inherit;">
+
+                                        <p class="itenary-top mb-0">
+                                            <span style="color:#007bff;font-family:'Playfair Display', serif;">
+                                                Day {{ $value->days }} :
+                                            </span>
+                                            {{ $value->title }}
+                                        </p>
+
+                                        <img src="{{ asset('themes-assets/icons/down.png') }}" width="20"
+                                            height="20" alt="Toggle">
+
+                                    </a>
+
+                                    <div class="collapse w-100" id="collapse{{ $key }}">
                                         <div class="card card-body itenary-bottom">
                                             {!! $value->content !!}
                                         </div>
                                     </div>
-                                </div><br>
+
+                                </div>
+                                <br>
                             @endforeach
                         </div>
                     </div>
@@ -277,9 +229,7 @@
             <div class="col-lg-3 sidebar">
                 <div class="container-fluid sticky">
                     <div class="container sticky-sidebar">
-
-                        <!-- Inquiry Button -->
-                        <button type="button" class="button-yellow itenary-top" data-toggle="modal" data-target="#ex1">
+                        <button type="button" class="button-yellow itenary-top" id="openInquiryPopup">
                             INQUIRY NOW
                         </button>
 
@@ -295,59 +245,46 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
-    <!-- Bootstrap pop up Modal -->
-    <div class="modal fade" id="ex1" tabindex="-1" role="dialog" aria-labelledby="inquiryModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title" id="inquiryModalLabel">Inquiry Form</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('post-inquiry') }}" id="inquiryForm">
-                        @csrf
-                        <input type="hidden" id="g_recaptcha_response" name="g_recaptcha_response" />
-                        <input type="hidden" id="trip_uri" name="trip_uri" value="{{ $data->uri }}"/>
-
-                        <div class="form-group">
-                            <label>Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email <span class="text-danger">*</span></label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Subject <span class="text-danger">*</span></label>
-                            <input type="text" name="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea name="message" class="form-control" rows="5"></textarea>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" form="inquiryForm" class="btn btn-warning btn-block">
-                        Send Inquiry
-                    </button>
-                </div>
-
+    <div id="geInquiryPopup" class="ge-popup-overlay">
+        <div class="ge-popup-box">
+            <div class="ge-popup-header">
+                <h3>Inquiry Form</h3>
+                <span id="closeInquiryPopup">&times;</span>
             </div>
+            <form action="{{ route('post-inquiry') }}" method="POST">
+                @csrf
+                <input type="hidden" id="g_recaptcha_response" name="g_recaptcha_response">
+                <input type="hidden" name="trip_uri" value="{{ $data->uri }}">
+
+                <div class="ge-row">
+                    <div class="ge-col">
+                        <label>Name <span>*</span></label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="ge-col">
+                        <label>Email <span>*</span></label>
+                        <input type="email" name="email" required>
+                    </div>
+                </div>
+                <div class="ge-group">
+                    <label>Subject <span>*</span></label>
+                    <input type="text" name="subject" required>
+                </div>
+                <div class="ge-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="5"></textarea>
+                </div>
+                <button class="ge-submit-btn" type="submit">
+                    Send Inquiry
+                </button>
+            </form>
         </div>
     </div>
     {{-- pop up model --}}
+
     <div class="section-padding similar-trip pt-5 pb-5 mt-5">
         <h1 class="heading-section">SIMILAR TRIP</h1>
         <div class="row">
@@ -384,7 +321,6 @@
             @endforeach
         </div>
     </div>
-
     <script src="https://www.google.com/recaptcha/api.js?render={{ env('SITE_KEY') }}"></script>
     <script>
         grecaptcha.ready(function() {
@@ -401,6 +337,27 @@
 
             // Refresh the reCAPTCHA token every 100 seconds (less than 2 minutes)
             setInterval(executeRecaptcha, 900000);
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const popup = document.getElementById("geInquiryPopup");
+
+            document.getElementById("openInquiryPopup").onclick = function() {
+                popup.classList.add("active");
+            };
+
+            document.getElementById("closeInquiryPopup").onclick = function() {
+                popup.classList.remove("active");
+            };
+
+            popup.onclick = function(e) {
+                if (e.target === popup) {
+                    popup.classList.remove("active");
+                }
+            };
+
         });
     </script>
 @stop
