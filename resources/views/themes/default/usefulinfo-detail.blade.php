@@ -22,7 +22,7 @@
             <p class="small-header-font"></p>
         </div>
     </div>
-    
+
     <div class="container section-padding">
         <div class="row">
             <div class="col-lg-8">
@@ -70,7 +70,5 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection
