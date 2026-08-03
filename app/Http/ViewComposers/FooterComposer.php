@@ -24,9 +24,8 @@ class FooterComposer{
     {
         $view->with('expeditions', DestinationModel::with('trips')->orderBy('id','asc')->get());
 		$view->with('posttypes', PostTypeModel::where(['is_menu'=>'1'])->where(['status'=>'1'])->get());
+        $view->with('pagetypes', PageTypeModel::where(['is_menu' => '1'])->orderBy('ordering', 'asc')->get());
 
-
-		$view->with('pagetypes',PageTypeModel::where(['is_menu'=>'1'])->orderBy('ordering','asc')->get());
 		$view->with('partners', BannerModel::where('status','1')->get());
 // 		$view->with('payment_partners', BannerModel::where('status','0')->get());
 		$view->with('activities', ActivityModel::orderBy('ordering','asc')->take(6)->get());
