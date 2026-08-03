@@ -48,10 +48,10 @@
             <div class="col-lg-4 col-md-3 mb-4">
                 <h4 class="footer-title">OTHER LINKS</h4>
 
-                @foreach($posttypes as $row)
+                @foreach($pagetypes as $row)
                     <a class="footer-link d-block mb-2"
-                       href="{{ route('page.posttype_detail',$row->uri) }}">
-                        {{ $row->post_type }}
+                       href="{{url('info/' . $row->uri)}}">
+                        {{ $row->page_type }}
                     </a>
                 @endforeach
             </div>

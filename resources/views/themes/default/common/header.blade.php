@@ -78,12 +78,6 @@
                             <li>
                                 <a href="{{ route('page.trekking')}}"><span class="menu-u">Trekking</span></a>
                             </li>
-                            @foreach ($posttypes as $item)
-                                <li>
-                                    <a href="{{ route('page.posttype_detail', $item->uri) }}"><span class="menu-u">{{ $item->post_type }}</span> </a>
-                                </li>
-                            @endforeach
-
                             @if($pagetypes->count() > 0)
                                 <li class="menu-item-has-children">
                                     <a><span class="menu-u">Useful Info</span>
@@ -98,6 +92,12 @@
                                     </div>
                                 </li>
                             @endif
+                            @foreach ($posttypes as $item)
+                                <li>
+                                    <a href="{{ route('page.posttype_detail', $item->uri) }}"><span class="menu-u">{{ $item->post_type }}</span> </a>
+                                </li>
+                            @endforeach
+
                         </ul>
                     </nav>
                 </div>
